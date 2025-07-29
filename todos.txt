@@ -1,0 +1,3260 @@
+/* =================================================================== */
+/* =================== ARQUIVO: main.css (CORRIGIDO) =================== */
+/* =================================================================== */
+
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #ffffff;
+    line-height: 1.6;
+    overflow: hidden; /* Impede rolagem geral do body */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    border-bottom: 3px solid #d4af37;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 100px; /* Altura fixa para consistência */
+}
+
+.cabecalho-superior {
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo-container h1 {
+    color: #d4af37;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.nome-extenso {
+    color: #cccccc;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 10px;;
+}
+
+/* Navegação */
+nav {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    
+    /* >>> ESTA É A LINHA QUE ADICIONA A BORDA <<< */
+    border-bottom: 3px solid #d4af37; 
+}
+
+.titulo-menu {
+    color: #d4af37;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-right: 20px;
+}
+
+.menu-opcoes {
+    display: inline-flex;
+    list-style: none;
+    gap: 30px;
+    margin-left: 20px;
+}
+
+.menu-opcoes a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.menu-opcoes a:hover,
+.menu-opcoes a.active {
+    background: #d4af37;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    padding-top: 160px; /* Ajustado para 80px (header) + 60px (nav) + 20px extras */
+    flex-grow: 1;
+    position: relative;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.02"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+}
+
+/* Menu alfabético */
+.menu-alfabetico {
+    width: 140px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-right: 2px solid #d4af37;
+    padding: 20px 10px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 160px; /* Ajustado para 100px (nav) + 60px (ajuste do nav) */
+    left: 0;
+    bottom: 40px; /* Espaço para o footer */
+    overflow-y: auto;
+    z-index: 800;
+    flex-shrink: 0;
+}
+
+/* O bloco abaixo configura a barra de rolagem do menu lateral dos livros */
+.menu-alfabetico::-webkit-scrollbar {
+    width: 12px;                                           /* Define largura da barra            */
+}
+
+.menu-alfabetico::-webkit-scrollbar-track {
+    background: #383838;                                 /* Define cor de fundo                */
+}
+
+.menu-alfabetico::-webkit-scrollbar-thumb {
+    margin: 5px;                                            /* Adiciona margem                   */
+    background: #a7a2a2;                                  /* Define cor de fundo               */
+    border-radius: 10px;                                    /* Arredonda bordas                  */
+}
+
+
+.alfabeto-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.letra-btn {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+    color: #ffffff;
+    border: 2px solid transparent;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letra-btn:hover {
+    background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+    border-color: #d4af37;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.letra-btn.active {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    border-color: #d4af37;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
+}
+
+/* Conteúdo principal - area da lista das palavras */
+#conteudo-principal {
+    flex: 1;
+    padding: 8px 20px;
+    margin-left: 140px; /* Largura do menu alfabético */
+    /*overflow-y: auto; /* Rolagem apenas no conteúdo */
+    height: calc(100vh - 205px); /* Ajusta para header (80px) + nav (60px) + 20px extras + footer (40px) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge */
+     overflow: hidden;
+      margin-top: 2px;
+}
+
+#conteudo-principal::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Opera */
+}
+
+/* Seções */
+.secao-ativa {
+    display: block;
+}
+
+.secao-inativa {
+    display: none;
+}
+
+/* Mensagem inicial */
+#mensagem-inicial {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#mensagem-inicial h2 {
+    color: #d4af37;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#mensagem-inicial p {
+    color: #cccccc;
+    font-size: 1.2rem;
+}
+
+/* Loading indicator */
+.loading-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #333;
+    border-top: 4px solid #d4af37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* O bloco abaixo configura o rodapé */
+footer {
+    position: fixed;                                     /* Fixa na tela                       */
+    bottom: 0;                                           /* Alinha ao fundo                    */
+    left: 0px;                                           /* Alinha à esquerda                  */
+    z-index: 1;                                          /* Define ordem de empilhamento       */
+    width: 100%;                                         /* Define largura total               */
+    height: 40px;                                        /* Define altura                      */
+    background-color: #383838;                         /* Define cor de fundo                */
+    color: #d4ac0d;                                    /* Define cor do texto                */
+    text-align: center;                                  /* Centraliza texto                   */
+}
+
+/* O bloco abaixo configura o texto do rodapé */
+footer p {
+    font-size: 1.3em;                                    /* Define tamanho da fonte            */
+    line-height: 1.5;                                    /* Define altura da linha             */
+}
+
+/* Ajustes gerais de layout (mantidos) */
+.dicionario-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: rgba(26, 26, 26, 0.5);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.dicionario-busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.dicionario-busca input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background: rgba(26, 26, 26, 0.8);
+    color: #ffffff;
+    height: 36px;
+}
+
+.dicionario-acoes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-buscar,
+.btn-carregar-mais {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    height: 36px;
+    white-space: nowrap;
+}
+
+.contador-dicionario {
+    color: #d4af37;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    margin-left: 15px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .menu-alfabetico {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 2px solid #d4af37;
+        top: 0;
+        left: 0;
+        bottom: auto;
+    }
+    
+    .alfabeto-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+    }
+    
+    .letra-btn {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .titulo-container h1 {
+        font-size: 2rem;
+    }
+    
+    .menu-opcoes {
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    #conteudo-principal {
+        padding: 20px;
+        margin-left: 0;
+        height: auto;
+        overflow-y: auto;
+    }
+}
+
+-------------------------------------------------------
+
+
+/* CSS PARA GARANTIR QUE FONTE E VEJA TAMBÉM SEJAM VISÍVEIS */
+
+/* Container de filtros - barra de filtro */
+/* Container de filtros - barra de filtro */
+.filtros-container {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    padding-top: 6px;
+    padding-bottom: 6px;
+    position: fixed; /* Fixa a barra de filtros */
+    top: 175px;
+    height: 80px; /* Altura fixa para cálculo preciso */
+    
+    /* ===== LINHA CORRIGIDA ABAIXO ===== */
+    z-index: 901; /* Alterado de 900 para 901 para ficar acima do contador */
+    
+    /* ===== LARGURA REDUZIDA COM MARGENS DE 20PX ===== */
+    left: 163px;  /* 140px do menu + 20px de margem */
+    right: 23px;  /* 20px de margem à direita */
+}
+
+/* Layout em linha para os filtros principais */
+.filtros-linha {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.filtro-grupo {
+    margin-bottom: 6px;
+}
+
+.filtro-grupo:nth-child(1) {
+    flex: 1.2;
+}
+.filtro-grupo:nth-child(2) {
+    flex: 0.8;
+}
+.filtro-grupo:nth-child(3) {
+    flex: 1;
+}
+.filtro-grupo:nth-child(4) {
+    flex: 1.5;
+}
+.filtro-grupo:nth-child(5) {
+    flex: 0.6;
+}
+.filtro-grupo:last-child {
+    margin-bottom: 0;
+}
+
+.filtro-grupo label {
+    display: block;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 0.95em;
+}
+
+.filtro-grupo input,
+.filtro-grupo select {
+    width: 100%;
+    height: 28px;
+    padding: 4px 8px;
+    background: #333333;
+    border: 2px solid #555555;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.filtro-grupo input:focus,
+.filtro-grupo select:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    background: #3a3a3a;
+}
+
+.filtro-grupo input::placeholder {
+    color: #999999;
+    font-size: 0.85rem;
+}
+
+/* Dropdowns customizados */
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.select-selected {
+    background: #333333;
+    border: 2px solid #555555;
+    border-radius: 6px;
+    color: #ffffff;
+    height: 28px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 0.95em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.select-selected:after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #d4af37;
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.select-selected.select-arrow-active:after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.select-selected:hover {
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    background: #3a3a3a;
+}
+
+.select-items {
+    position: absolute;
+    background: #333333;
+    border: 2px solid #d4af37;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: block;
+}
+
+.select-items div {
+    color: #ffffff;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #555555;
+    font-size: 0.9rem;
+}
+
+.select-items div:hover {
+    background: #d4af37;
+    color: #1a1a1a;
+}
+
+.select-items div:last-child {
+    border-bottom: none;
+}
+
+.select-hide {
+    display: none;
+}
+
+.same-as-selected {
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+}
+
+/* Botão de consulta */
+.search-btn {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-transform: uppercase;
+    height: 28px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+    margin-top: 0;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Container de resultados */
+#resultados-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 400px;
+    overflow-y: auto; /* Rolagem apenas no conteúdo */
+    height: calc(100vh - 310px); 
+    margin-top: 160px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge */
+    
+    /* ===== LINHA ADICIONADA PARA CORREÇÃO ===== */
+    padding-bottom: 140px; /* Garante espaço no final da rolagem */
+}
+
+#resultados-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Opera */
+}
+
+/* CARD DE PALAVRA */
+.palavra-section,
+.palavra-item {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid #444444;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    min-height: auto;
+}
+
+.palavra-section:hover,
+.palavra-item:hover {
+    border-color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+}
+
+/* BARRA AZUL - APENAS PALAVRA, TRIÂNGULO E BOTÃO */
+.palavra-header {
+    background: linear-gradient(135deg, #4a5bff 0%, #3a4bef 100%);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px 8px 8px 8px;
+    margin: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.palavra-header:hover {
+    background: linear-gradient(135deg, #5a6bff 0%, #4a5bff 100%);
+}
+
+/* PALAVRA CENTRALIZADA NA BARRA AZUL */
+.palavra-titulo {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* TRIÂNGULO AMARELO NA BARRA AZUL */
+.expand-indicator {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #d4af37;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10;
+}
+
+.expand-indicator.expanded {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* BOTÃO DE OCORRÊNCIAS NA BARRA AZUL */
+.contador,
+.ocorrencias-count {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    padding: 8px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0;
+    z-index: 10;
+    width: 140px;
+    min-width: 140px;
+    box-sizing: border-box;
+}
+
+.contador:hover,
+.ocorrencias-count:hover {
+    transform: translateY(-50%) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* FORÇAR EXIBIÇÃO DAS INFORMAÇÕES - FORA DA BARRA AZUL */
+.palavra-fonte-info,
+.fonte-info {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50%;
+    z-index: 5;
+    background: linear-gradient(135deg, #0c0909 0%, #0a0a0a 100%);
+    border: 1px solid #333333;
+    border-right: none;
+    padding: 6px 20px;
+    margin: 0;
+    color: #d4af37;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.palavra-veja-tambem-info,
+.veja-tambem {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 50%;
+    z-index: 5;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 1px solid #333333;
+    border-left: none;
+    padding: 6px 20px;
+    margin: 0;
+    color: #d4af37;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+/* GARANTIR QUE AS INFORMAÇÕES SEJAM VISÍVEIS */
+.palavra-header + .palavra-fonte-info,
+.palavra-header + .fonte-info {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.palavra-fonte-info + .palavra-veja-tambem-info,
+.fonte-info + .veja-tambem {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.palavra-fonte-info strong,
+.palavra-veja-tambem-info strong,
+.fonte-info strong,
+.veja-tambem strong {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+/* CONTEÚDO DAS CONCORDÂNCIAS */
+.concordancias-content {
+    padding: 20px;
+    display: none;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-top: 1px solid #444444;
+    margin-top: 40px;
+    position: relative;
+    top: 0;
+}
+
+.concordancias-content.expanded {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* GRUPOS DE LIVROS */
+.livro-grupo {
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.livro-header {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+    color: #d4af37;
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* OCORRÊNCIAS */
+.ocorrencia,
+.concordancia-item {
+    background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+    border: 1px solid #555555;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.ocorrencia:hover,
+.concordancia-item:hover {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+}
+
+.ocorrencia:last-child,
+.concordancia-item:last-child {
+    margin-bottom: 0;
+}
+
+.referenciaConcordancia,
+.referencia {
+    color: #d4af37;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.texto,
+.texto-versiculo {
+    color: #cccccc;
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+.texto mark,
+.palavra-destacada {
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* CONTADOR CONTAINER - BOTÃO CARREGAR MAIS */
+.contador-container {
+    background-color: #34312a;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    height: 54px;
+    position: fixed; /* Fixa a barra do contador */
+    top: 265px;
+    z-index: 900;
+    padding: 0 16px;
+
+    /* ===== LARGURA REDUZIDA COM MARGENS DE 20PX ===== */
+    left: 163px;  /* 140px do menu + 20px de margem */
+    right: 23px;  /* 20px de margem à direita */
+}
+
+.btn-carregar-mais {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 8px 12px;
+    border: none;
+    font-size: 0.95em;
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.contador-container p {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0;
+    color: #d4af37;
+    font-size: 1.0em;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.btn-carregar-mais:hover {
+    transform: translateY(-50%) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* MENSAGENS */
+.sem-resultados {
+    text-align: center;
+    padding: 40px 20px;
+    color: #cccccc;
+}
+
+.sem-resultados h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.loader,
+.loader-global-busca {
+    text-align: center;
+    padding: 40px 20px;
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .filtros-container {
+        position: static; /* Remove fixo no mobile */
+        top: 0;
+        left: 0;
+        width: 100%; /* Largura total no mobile */
+        margin-bottom: 15px;
+    }
+
+    .filtros-linha {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filtro-grupo {
+        margin-bottom: 15px;
+        flex: none;
+    }
+
+    .search-btn {
+        margin-top: 8px;
+    }
+
+    .palavra-fonte-info,
+    .palavra-veja-tambem-info,
+    .fonte-info,
+    .veja-tambem {
+        position: static;
+        width: 100%;
+        border: 1px solid #333333;
+    }
+
+    .contador-container {
+        position: static; /* Remove fixo no mobile */
+        top: auto;
+        left: 0;
+        width: 100%; /* Largura total no mobile */
+        height: auto;
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .btn-carregar-mais,
+    .contador-container p {
+        position: static;
+        transform: none;
+        text-align: center;
+    }
+
+    #resultados-container {
+        margin-left: 0;
+        height: auto;
+        overflow-y: auto;
+        margin-top: 0; /* Remove margem no mobile */
+    }
+}
+
+----------------------------------------------------------
+
+/**
+ * Sistema de concordância otimizado com carregamento sob demanda
+ */
+class ConcordanciaOptimized {
+    constructor() {
+        this.currentLetter = 'A';
+        this.currentPage = 0;
+        this.isLoading = false;
+        this.hasMore = true;
+        this.currentResults = [];
+        this.searchTerm = '';
+        this.filters = {
+            testamento: 'todos',
+            livro: 'todos'
+        };
+        // Nova propriedade: número total de resultados exibidos até agora
+        this.visibleCount = 0;
+        this.initializeElements();
+        this.bindEvents();
+        this.loadInitialData();
+    }
+
+    initializeElements() {
+        this.elements = {
+            resultadosContainer: document.getElementById('resultados-container'),
+            loadingIndicator: document.getElementById('loading-indicator'),
+            contadorResultados: document.getElementById('contador-resultados'),
+            resultadosVisiveis: document.getElementById('resultados-visiveis'),
+            totalResultados: document.getElementById('total-resultados'),
+            carregarMais: document.getElementById('carregar-mais'),
+            filtroPalavra: document.getElementById('filtro-palavra-input'),
+            testamentoSelect: document.getElementById('testamento-select'),
+            livroSelect: document.getElementById('livro-select'),
+            buscaGlobal: document.getElementById('busca-global'),
+            btnBuscar: document.getElementById('btn-buscar'),
+            letrasBtns: document.querySelectorAll('.letra-btn')
+        };
+    }
+
+    bindEvents() {
+        this.elements.letrasBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const letra = e.target.dataset.letra;
+                this.selectLetter(letra);
+            });
+        });
+
+        this.elements.carregarMais.addEventListener('click', () => {
+            this.loadMoreResults();
+        });
+
+        this.elements.btnBuscar.addEventListener('click', () => {
+            this.performGlobalSearch();
+        });
+
+        this.elements.buscaGlobal.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.performGlobalSearch();
+            }
+        });
+
+        let debounceTimeout;
+        this.elements.buscaGlobal.addEventListener('input', (e) => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                const searchTerm = e.target.value.trim();
+                if (!searchTerm) {
+                    this.searchTerm = '';
+                    this.filters.testamento = 'todos';
+                    this.filters.livro = 'todos';
+                    if (this.elements.filtroPalavra) {
+                        this.elements.filtroPalavra.value = '';
+                        this.elements.filtroPalavra.disabled = false;
+                    }
+                    this.resetDropdowns();
+                    this.selectLetter(this.currentLetter);
+                } else {
+                    this.elements.resultadosContainer.innerHTML = '';
+                    this.elements.contadorResultados.style.display = 'none';
+                    this.elements.carregarMais.style.display = 'none';
+                    if (this.elements.filtroPalavra) {
+                        this.elements.filtroPalavra.disabled = true;
+                    }
+                }
+            }, 300);
+        });
+
+        this.elements.filtroPalavra.addEventListener('input', (e) => {
+            if (!this.elements.filtroPalavra.disabled) {
+                this.filterCurrentResults(e.target.value);
+            }
+        });
+
+        this.setupCustomDropdownEvents();
+    }
+
+    setupCustomDropdownEvents() {
+        this.setupTestamentoDropdown();
+        this.setupLivroDropdown();
+        this.setupDropdownToggleEvents();
+    }
+
+    setupTestamentoDropdown() {
+        const testamentoSelect = document.getElementById('custom-testamento-select');
+        if (!testamentoSelect) return;
+        const selectedDisplay = testamentoSelect.querySelector('.select-selected');
+        const itemsContainer = testamentoSelect.querySelector('.select-items');
+        if (!selectedDisplay || !itemsContainer) return;
+
+        selectedDisplay.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.closeAllDropdowns();
+            itemsContainer.classList.toggle('select-hide');
+            selectedDisplay.classList.toggle('select-arrow-active');
+        });
+
+        itemsContainer.querySelectorAll('div').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const valor = item.getAttribute('data-value') || 'todos';
+                const texto = item.textContent;
+                selectedDisplay.textContent = texto;
+                selectedDisplay.setAttribute('data-value', valor);
+                itemsContainer.querySelectorAll('div').forEach(div => div.classList.remove('same-as-selected'));
+                item.classList.add('same-as-selected');
+                this.filters.testamento = valor;
+                this.updateLivroDropdown(valor);
+                this.renderFilteredResults();
+                this.closeAllDropdowns();
+                console.log(`[FILTRO] Testamento selecionado: ${valor}`);
+            });
+        });
+    }
+
+    setupLivroDropdown() {
+        const livroSelect = document.getElementById('custom-livro-select');
+        if (!livroSelect) return;
+        const selectedDisplay = livroSelect.querySelector('.select-selected');
+        const itemsContainer = livroSelect.querySelector('.select-items');
+        if (!selectedDisplay || !itemsContainer) return;
+
+        selectedDisplay.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.closeAllDropdowns();
+            itemsContainer.classList.toggle('select-hide');
+            selectedDisplay.classList.toggle('select-arrow-active');
+        });
+    }
+
+    setupDropdownToggleEvents() {
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select')) {
+                this.closeAllDropdowns();
+            }
+        });
+    }
+
+    closeAllDropdowns() {
+        document.querySelectorAll('.custom-select .select-items').forEach(container => {
+            container.classList.add('select-hide');
+        });
+        document.querySelectorAll('.custom-select .select-selected').forEach(display => {
+            display.classList.remove('select-arrow-active');
+        });
+    }
+
+    async loadInitialData() {
+        await this.selectLetter('A');
+    }
+
+    async selectLetter(letra) {
+        if (this.isLoading) return;
+        this.updateActiveLetterButton(letra);
+        this.currentLetter = letra;
+        this.currentPage = 0;
+        this.currentResults = [];
+        this.visibleCount = 0; // Reset contador
+        this.searchTerm = '';
+        this.filters = { testamento: 'todos', livro: 'todos' };
+        this.elements.buscaGlobal.value = '';
+        this.elements.filtroPalavra.value = '';
+        this.elements.filtroPalavra.disabled = false;
+        this.resetDropdowns();
+
+        await this.loadLetterData(letra, 0, true);
+        this.updateLivroDropdown('todos');
+    }
+
+    resetDropdowns() {
+        const testamentoSelect = document.getElementById('custom-testamento-select');
+        if (testamentoSelect) {
+            const selected = testamentoSelect.querySelector('.select-selected');
+            if (selected) {
+                selected.textContent = 'Todos';
+                selected.dataset.value = 'todos';
+            }
+        }
+        const livroSelect = document.getElementById('custom-livro-select');
+        if (livroSelect) {
+            const selected = livroSelect.querySelector('.select-selected');
+            if (selected) {
+                selected.textContent = 'Todos os livros';
+                selected.dataset.value = 'todos';
+            }
+        }
+    }
+
+    async loadLetterData(letra, page = 0, clearResults = false) {
+        if (this.isLoading) return;
+
+        if (clearResults) {
+            this.elements.resultadosContainer.innerHTML = '';
+            this.elements.contadorResultados.style.display = 'none';
+            this.elements.carregarMais.style.display = 'none';
+        }
+
+        this.showLoading(true);
+        this.isLoading = true;
+
+        try {
+            const result = await window.dataManager.loadLetterData(letra, page);
+            const pageSize = result.data.length;
+
+            if (clearResults) {
+                this.currentResults = [];
+                this.visibleCount = 0; // Reset
+            }
+
+            // Atualiza contador: número total de resultados exibidos até agora
+            this.visibleCount = (page + 1) * pageSize;
+
+            this.currentResults = result.data; // Substitui, não acumula
+            this.hasMore = result.hasMore;
+            this.currentPage = page;
+
+            this.renderResults(result.data, !clearResults);
+            this.updateResultsCounter(this.visibleCount, result.total);
+            this.updateLoadMoreButton();
+        } catch (error) {
+            console.error('Erro ao carregar dados:', error);
+            this.showError('Erro ao carregar dados. Tente novamente.');
+        } finally {
+            this.showLoading(false);
+            this.isLoading = false;
+        }
+    }
+
+    async loadMoreResults() {
+        if (!this.hasMore || this.isLoading) return;
+        if (this.searchTerm) return;
+
+        await this.loadLetterData(this.currentLetter, this.currentPage + 1, true);
+    }
+
+    async performGlobalSearch() {
+        const searchTerm = this.elements.buscaGlobal.value.trim();
+        if (!searchTerm) {
+            this.searchTerm = '';
+            this.filters.testamento = 'todos';
+            this.filters.livro = 'todos';
+            if (this.elements.filtroPalavra) {
+                this.elements.filtroPalavra.value = '';
+                this.elements.filtroPalavra.disabled = false;
+            }
+            this.resetDropdowns();
+            this.selectLetter(this.currentLetter);
+            return;
+        }
+        if (this.isLoading) return;
+
+        this.elements.resultadosContainer.innerHTML = '';
+        this.elements.contadorResultados.style.display = 'none';
+        this.elements.carregarMais.style.display = 'none';
+        this.showLoading(true);
+        this.isLoading = true;
+        this.searchTerm = searchTerm;
+        this.filters = { testamento: 'todos', livro: 'todos' };
+        if (this.elements.filtroPalavra) {
+            this.elements.filtroPalavra.value = '';
+            this.elements.filtroPalavra.disabled = true;
+        }
+        this.resetDropdowns();
+
+        try {
+            const result = await this.searchInAllFiles(searchTerm);
+            this.currentResults = result.data;
+            this.hasMore = false;
+            this.visibleCount = result.data.length; // Na busca global, mostra tudo
+
+            this.renderResults(result.data, false);
+            this.updateResultsCounter(this.visibleCount, result.total);
+            this.updateLoadMoreButton();
+            if (result.data.length === 0) {
+                this.showNoResults(`Nenhum resultado encontrado para "${searchTerm}".`);
+            }
+        } catch (error) {
+            console.error('Erro na busca global:', error);
+            this.showError('Erro ao realizar busca. Tente novamente.');
+        } finally {
+            this.showLoading(false);
+            this.isLoading = false;
+        }
+    }
+
+    filterCurrentResults(filterTerm) {
+        this.renderFilteredResults();
+    }
+
+    renderFilteredResults() {
+        let filteredData = [...this.currentResults];
+        const filterTerm = this.elements.filtroPalavra?.value?.trim() || '';
+        if (filterTerm && !this.elements.filtroPalavra.disabled) {
+            filteredData = filteredData.filter(item => 
+                item.palavra.toLowerCase().includes(filterTerm.toLowerCase())
+            );
+        }
+        if (this.filters.testamento !== 'todos') {
+            filteredData = filteredData.map(item => {
+                const filteredConcordancias = item.concordancias.filter(concordancia => {
+                    const nomeLivro = this.extractBookName(concordancia.referencia);
+                    const testamento = this.getBookTestament(nomeLivro);
+                    return testamento === this.filters.testamento;
+                });
+                return filteredConcordancias.length > 0 ? { ...item, concordancias: filteredConcordancias, ocorrencias: filteredConcordancias.length } : null;
+            }).filter(item => item !== null);
+        }
+        if (this.filters.livro !== 'todos') {
+            filteredData = filteredData.map(item => {
+                const filteredConcordancias = item.concordancias.filter(concordancia => {
+                    const nomeLivro = this.extractBookName(concordancia.referencia);
+                    const livroConfig = this.findBookById(this.filters.livro);
+                    return livroConfig && nomeLivro.toLowerCase() === livroConfig.nome.toLowerCase();
+                });
+                return filteredConcordancias.length > 0 ? { ...item, concordancias: filteredConcordancias, ocorrencias: filteredConcordancias.length } : null;
+            }).filter(item => item !== null);
+        }
+
+        this.elements.resultadosContainer.innerHTML = '';
+        this.renderResults(filteredData, false);
+        this.updateResultsCounter(filteredData.length, this.currentResults.length);
+    }
+
+    updateLivroDropdown(testamentoSelecionado) {
+        const livroSelect = document.getElementById('custom-livro-select');
+        if (!livroSelect) return;
+        const itemsContainer = livroSelect.querySelector('.select-items');
+        const selectedDisplay = livroSelect.querySelector('.select-selected');
+        if (!itemsContainer || !selectedDisplay) return;
+
+        itemsContainer.innerHTML = '';
+        const todosOption = document.createElement('div');
+        todosOption.textContent = 'Todos os livros';
+        todosOption.setAttribute('data-value', 'todos');
+        todosOption.classList.add('same-as-selected');
+        itemsContainer.appendChild(todosOption);
+
+        const livros = this.getLivrosPorTestamento(testamentoSelecionado);
+        livros.forEach(livro => {
+            const option = document.createElement('div');
+            option.textContent = livro.nome;
+            option.setAttribute('data-value', livro.id);
+            itemsContainer.appendChild(option);
+        });
+
+        selectedDisplay.textContent = 'Todos os livros';
+        selectedDisplay.setAttribute('data-value', 'todos');
+        this.filters.livro = 'todos';
+
+        itemsContainer.querySelectorAll('div').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const valor = item.getAttribute('data-value') || 'todos';
+                const texto = item.textContent;
+                selectedDisplay.textContent = texto;
+                selectedDisplay.setAttribute('data-value', valor);
+                itemsContainer.querySelectorAll('div').forEach(div => div.classList.remove('same-as-selected'));
+                item.classList.add('same-as-selected');
+                this.filters.livro = valor;
+                this.renderFilteredResults();
+                this.closeAllDropdowns();
+                console.log(`[FILTRO] Livro selecionado: ${valor}`);
+            });
+        });
+    }
+
+    getLivrosPorTestamento(testamento) {
+        const todosLivros = [
+            { id: 'gn', nome: 'Gênesis', testamento: 'Antigo Testamento' },
+            { id: 'ex', nome: 'Êxodo', testamento: 'Antigo Testamento' },
+            { id: 'lv', nome: 'Levítico', testamento: 'Antigo Testamento' },
+            { id: 'nm', nome: 'Números', testamento: 'Antigo Testamento' },
+            { id: 'dt', nome: 'Deuteronômio', testamento: 'Antigo Testamento' },
+            // ... (todos os livros)
+            { id: 'ap', nome: 'Apocalipse', testamento: 'Novo Testamento' }
+        ];
+        if (testamento === 'todos') return todosLivros;
+        return todosLivros.filter(livro => livro.testamento === testamento);
+    }
+
+    extractBookName(referencia) {
+        if (!referencia) return '';
+        const match = referencia.match(/^([A-Za-zÀ-ÿ\s0-9]+)(?=\s*\d)/);
+        return match ? match[1].trim() : referencia.split(' ')[0].trim();
+    }
+
+    getBookTestament(nomeLivro) {
+        const bibliaConfig = {
+            'Antigo Testamento': ['Gênesis', 'Êxodo', /* ... */ 'Malaquias'],
+            'Novo Testamento': ['Mateus', 'Marcos', /* ... */ 'Apocalipse']
+        };
+        for (const [testamento, livros] of Object.entries(bibliaConfig)) {
+            if (livros.some(livro => livro.toLowerCase() === nomeLivro.toLowerCase())) {
+                return testamento;
+            }
+        }
+        return null;
+    }
+
+    findBookById(bookId) {
+        const livros = [
+            { id: 'gn', nome: 'Gênesis' }, { id: 'ex', nome: 'Êxodo' }, /* ... */ { id: 'ap', nome: 'Apocalipse' }
+        ];
+        return livros.find(l => l.id === bookId);
+    }
+
+    async searchInAllFiles(searchTerm) {
+        const searchLower = searchTerm.toLowerCase();
+        const allResults = [];
+        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        this.elements.loadingIndicator.innerHTML = `
+            <div class="loading-spinner"></div>
+            <p>Buscando "${searchTerm}" em todos os arquivos...</p>
+        `;
+        for (const letter of letters) {
+            try {
+                await window.dataManager.loadLetterList();
+                const letterFiles = window.dataManager.listaLetras[letter] || [];
+                for (const fileName of letterFiles) {
+                    try {
+                        const response = await fetch(`/concordancia/${letter}/${fileName}.json`);
+                        if (!response.ok) continue;
+                        const jsonData = await response.json();
+                        const wordEntries = jsonData[letter] || [];
+                        wordEntries.forEach(item => {
+                            let matchingConcordancias = [];
+                            let wordMatches = false;
+                            if (item.palavra && item.palavra.toLowerCase().includes(searchLower)) {
+                                wordMatches = true;
+                                matchingConcordancias = item.concordancias || [];
+                            } else if (item.concordancias) {
+                                const regex = new RegExp(`\\b${searchLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+                                matchingConcordancias = item.concordancias.filter(concordancia => regex.test(concordancia.texto));
+                            }
+                            if (item.fonte && item.fonte.toLowerCase().includes(searchLower)) {
+                                matchingConcordancias = item.concordancias || [];
+                            }
+                            if (item['veja tambem']) {
+                                const hasVejaTambem = item['veja tambem'].some(vt => vt.toLowerCase().includes(searchLower));
+                                if (hasVejaTambem) {
+                                    matchingConcordancias = item.concordancias || [];
+                                }
+                            }
+                            if (matchingConcordancias.length > 0) {
+                                allResults.push({
+                                    ...item,
+                                    concordancias: matchingConcordancias,
+                                    ocorrencias: matchingConcordancias.length
+                                });
+                            }
+                        });
+                    } catch (fileError) {
+                        console.warn(`Erro ao carregar ${fileName}.json:`, fileError);
+                    }
+                }
+            } catch (letterError) {
+                console.warn(`Erro na letra ${letter}:`, letterError);
+            }
+        }
+        allResults.sort((a, b) => {
+            const aExact = a.palavra.toLowerCase() === searchLower;
+            const bExact = b.palavra.toLowerCase() === searchLower;
+            if (aExact && !bExact) return -1;
+            if (!aExact && bExact) return 1;
+            return b.ocorrencias - a.ocorrencias;
+        });
+        return { data: allResults, total: allResults.length };
+    }
+
+    renderResults(data, append = false) {
+        if (!append) {
+            this.elements.resultadosContainer.innerHTML = '';
+        }
+        if (data.length === 0 && !append) {
+            this.showNoResults();
+            return;
+        }
+        const fragment = document.createDocumentFragment();
+        data.forEach(item => {
+            const palavraElement = this.createPalavraElement(item);
+            fragment.appendChild(palavraElement);
+        });
+        this.elements.resultadosContainer.appendChild(fragment);
+        this.elements.resultadosContainer.style.display = 'none';
+        this.elements.resultadosContainer.offsetHeight;
+        this.elements.resultadosContainer.style.display = '';
+    }
+
+    createPalavraElement(item) {
+        const palavraDiv = document.createElement('div');
+        palavraDiv.className = 'palavra-item';
+        const header = document.createElement('div');
+        header.className = 'palavra-header';
+        header.innerHTML = `
+            <div class="palavra-titulo">${item.palavra.toUpperCase()}</div>
+            <div class="palavra-info">
+                <div class="palavra-detalhes">
+                    ${item.fonte ? `<div class="fonte-info">Fonte: ${item.fonte}</div>` : ''}
+                    ${item['veja tambem'] && item['veja tambem'].length > 0 ? 
+                        `<div class="veja-tambem"><strong>Veja também:</strong> ${item['veja tambem'].join(', ')}</div>` : ''}
+                </div>
+                <div class="ocorrencias-count">${item.ocorrencias} ocorrência${item.ocorrencias !== 1 ? 's' : ''}</div>
+            </div>
+            <div class="expand-indicator">▼</div>
+        `;
+        const content = document.createElement('div');
+        content.className = 'concordancias-content';
+        if (item.concordancias && item.concordancias.length > 0) {
+            content.innerHTML = item.concordancias.map(concordancia => `
+                <div class="concordancia-item">
+                    <div class="referencia">${concordancia.referencia}</div>
+                    <div class="texto-versiculo">${this.highlightSearchTerm(concordancia.texto, this.searchTerm || item.palavra)}</div>
+                </div>
+            `).join('');
+        }
+        header.addEventListener('click', () => {
+            const isExpanded = content.classList.contains('expanded');
+            const indicator = header.querySelector('.expand-indicator');
+            if (isExpanded) {
+                content.classList.remove('expanded');
+                indicator.classList.remove('expanded');
+            } else {
+                content.classList.add('expanded');
+                indicator.classList.add('expanded');
+            }
+        });
+        palavraDiv.appendChild(header);
+        palavraDiv.appendChild(content);
+        return palavraDiv;
+    }
+
+    highlightSearchTerm(text, searchTerm) {
+        if (!searchTerm || !text) return text;
+        const regex = new RegExp(`(${searchTerm})`, 'gi');
+        return text.replace(regex, '<span class="palavra-destacada">$1</span>');
+    }
+
+    updateActiveLetterButton(letra) {
+        this.elements.letrasBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.letra === letra) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    updateResultsCounter(visible, total) {
+        this.elements.resultadosVisiveis.textContent = visible;
+        this.elements.totalResultados.textContent = total;
+        if (visible > 0) {
+            this.elements.contadorResultados.style.display = 'block';
+        } else {
+            this.elements.contadorResultados.style.display = 'none';
+        }
+    }
+
+    updateLoadMoreButton() {
+        if (this.hasMore && !this.searchTerm) {
+            this.elements.carregarMais.style.display = 'block';
+        } else {
+            this.elements.carregarMais.style.display = 'none';
+        }
+    }
+
+    showLoading(show) {
+        if (show) {
+            this.elements.loadingIndicator.style.display = 'block';
+            this.elements.resultadosContainer.style.visibility = 'hidden';
+            this.elements.contadorResultados.style.display = 'none';
+            this.elements.carregarMais.style.display = 'none';
+        } else {
+            this.elements.loadingIndicator.style.display = 'none';
+            this.elements.resultadosContainer.style.visibility = 'visible';
+        }
+    }
+
+    showError(message) {
+        this.elements.resultadosContainer.innerHTML = `
+            <div class="sem-resultados">
+                <h3>Erro</h3>
+                <p>${message}</p>
+            </div>
+        `;
+    }
+
+    showNoResults(message = 'Nenhum resultado encontrado.') {
+        this.elements.resultadosContainer.innerHTML = `
+            <div class="sem-resultados">
+                <h3>Sem resultados</h3>
+                <p>${message}</p>
+            </div>
+        `;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.concordanciaOptimized = new ConcordanciaOptimized();
+});
+
+------------------------------------------------------
+
+
+// script/concordancia.js (VERSÃO CORRIGIDA E DEFINITIVA)
+
+import { getTestamentoDoLivroConfig, getOrdemDosLivrosConfig, findLivroByIdConfig } from './dropdown_concordancia.js';
+
+const CONCORDANCIA_DATA_BASE_PATH_LOCAL = '/concordancia/';
+let dadosCarregadosPorLetraOuBusca = [];
+let filtroTestamentoAtual = 'todos';
+let filtroLivroAtual = 'todos';
+let filtroPalavraAtual = '';
+let termoBuscaGlobalAtual = '';
+
+export async function carregarEDisplayConcordanciaPorLetra(letra) {
+    const resultadosContainer = document.getElementById('resultados-container');
+    if (!resultadosContainer) return;
+    resultadosContainer.innerHTML = '<div class="loader">Carregando...</div>';
+
+    try {
+        const response = await fetch(`${CONCORDANCIA_DATA_BASE_PATH_LOCAL}${letra.toLowerCase()}.json`);
+        if (!response.ok) throw new Error(`Arquivo '${letra.toLowerCase()}.json' não encontrado.`);
+        const jsonData = await response.json();
+        const wordEntries = jsonData[letra.toLowerCase()] || [];
+
+        dadosCarregadosPorLetraOuBusca = wordEntries;
+        termoBuscaGlobalAtual = '';
+        _aplicarFiltrosERenderizar();
+    } catch (error) {
+        console.error(error);
+        resultadosContainer.innerHTML = `<p class="erro-mensagem">${error.message}</p>`;
+        dadosCarregadosPorLetraOuBusca = [];
+    }
+}
+
+export function onConcordanciaViewReady() {
+    const testamentoSelect = document.getElementById('custom-testamento-select')?.querySelector('.select-selected');
+    const livroSelect = document.getElementById('custom-livro-select')?.querySelector('.select-selected');
+    const palavraInput = document.getElementById('filtro-palavra-input');
+
+    filtroTestamentoAtual = testamentoSelect?.dataset.value || 'todos';
+    filtroLivroAtual = livroSelect?.dataset.value || 'todos';
+    filtroPalavraAtual = palavraInput?.value.toLowerCase().trim() || '';
+
+    _aplicarFiltrosERenderizar();
+}
+
+export function carregarDadosBaseConcordancia(dados) {
+    dadosCarregadosPorLetraOuBusca = dados || [];
+    _aplicarFiltrosERenderizar();
+}
+
+export function atualizarFiltroTestamento(novoTestamento) {
+    if (filtroTestamentoAtual === novoTestamento) return;
+    filtroTestamentoAtual = novoTestamento;
+    _aplicarFiltrosERenderizar();
+}
+
+export function atualizarFiltroLivro(novoLivro) {
+    if (filtroLivroAtual === novoLivro) return;
+    filtroLivroAtual = novoLivro;
+    _aplicarFiltrosERenderizar();
+}
+
+export function atualizarFiltroPalavra(novaPalavra) {
+    const palavraFiltrada = novaPalavra.toLowerCase().trim();
+    if (filtroPalavraAtual === palavraFiltrada) return;
+    filtroPalavraAtual = palavraFiltrada;
+    _aplicarFiltrosERenderizar();
+}
+
+function extrairNomeLivroDaReferencia(referencia) {
+    if (!referencia) return '';
+    const match = referencia.match(/^([A-Za-zÀ-ÿ\s0-9]+)(?=\s*\d)/);
+    return match ? match[1].trim() : referencia.split(' ')[0].trim();
+}
+
+function destacarPalavra(texto, termo) {
+    if (!termo || !texto) return texto;
+    const regex = new RegExp(`\\b(${termo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
+    return texto.replace(regex, '<mark>$1</mark>');
+}
+
+function formatarNomeLivro(nomeLivro) {
+    const partes = nomeLivro.split(' ');
+    if (partes.length > 1 && ['1', '2', '3'].includes(partes[0])) {
+        return `${partes[0]}º ${partes.slice(1).join(' ')}`;
+    }
+    return nomeLivro;
+}
+
+function formatarReferencia(referencia) {
+    const match = referencia.match(/^([A-Za-zÀ-ÿ\s0-9]+?)(\s+\d+:\d+.*)?$/);
+    if (match) {
+        const nomeLivroOriginal = match[1].trim();
+        const restoDaReferencia = match[2] || '';
+        const nomeLivroFormatado = formatarNomeLivro(nomeLivroOriginal);
+        return `${nomeLivroFormatado}${restoDaReferencia}`;
+    }
+    return referencia;
+}
+
+function _aplicarFiltrosERenderizar() {
+    let resultados = [...dadosCarregadosPorLetraOuBusca];
+
+    if (filtroPalavraAtual) {
+        resultados = resultados.filter(item =>
+            item.palavra?.toLowerCase().includes(filtroPalavraAtual)
+        );
+    }
+
+    if (filtroTestamentoAtual !== 'todos') {
+        resultados = resultados.reduce((acc, palavraItem) => {
+            const filtradas = (palavraItem.concordancias || []).filter(con => {
+                const nomeLivro = extrairNomeLivroDaReferencia(con.referencia).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                const testamento = getTestamentoDoLivroConfig(nomeLivro);
+                return testamento === filtroTestamentoAtual;
+            });
+            if (filtradas.length > 0) {
+                acc.push({ ...palavraItem, concordancias: filtradas, ocorrencias: filtradas.length });
+            }
+            return acc;
+        }, []);
+    }
+
+    if (filtroLivroAtual !== 'todos') {
+        resultados = resultados.reduce((acc, palavraItem) => {
+            const filtradas = (palavraItem.concordancias || []).filter(con => {
+                const nomeLivroRef = extrairNomeLivroDaReferencia(con.referencia);
+                const livroCfg = findLivroByIdConfig(filtroLivroAtual);
+                return livroCfg && nomeLivroRef.toLowerCase() === livroCfg.nome.toLowerCase();
+            });
+            if (filtradas.length > 0) {
+                acc.push({ ...palavraItem, concordancias: filtradas, ocorrencias: filtradas.length });
+            }
+            return acc;
+        }, []);
+    }
+
+    _renderizarResultados(resultados);
+}
+
+function _renderizarResultados(lista) {
+    const container = document.getElementById('resultados-container');
+    if (!container) return;
+    container.innerHTML = '';
+    if (!lista || lista.length === 0) {
+        let mensagem = "Nenhum resultado encontrado para os filtros aplicados.";
+        if (termoBuscaGlobalAtual) {
+            mensagem = `Nenhum resultado encontrado para "${termoBuscaGlobalAtual}".`;
+        } else if (filtroPalavraAtual) {
+            mensagem = `Nenhum resultado encontrado para "${filtroPalavraAtual}".`;
+        }
+        container.innerHTML = `<div class="sem-resultados"><h3>Sem resultados</h3><p>${mensagem}</p></div>`;
+        return;
+    }
+
+    lista.forEach(item => {
+        const section = document.createElement('div');
+        section.className = 'palavra-section';
+
+        const header = document.createElement('div');
+        header.className = 'palavra-header';
+
+        const titulo = document.createElement('h2');
+        titulo.className = 'palavra-titulo';
+        titulo.textContent = item.palavra;
+
+        const contador = document.createElement('span');
+        contador.className = 'contador';
+        contador.textContent = `${item.ocorrencias || 0} ocorrências`;
+
+        header.appendChild(titulo);
+        header.appendChild(contador);
+        section.appendChild(header);
+
+        if (item.fonte) {
+            const fonte = document.createElement('div');
+            fonte.className = 'palavra-fonte-info';
+            fonte.innerHTML = `<strong>Fonte:</strong> ${item.fonte}`;
+            section.appendChild(fonte);
+        }
+
+        if (item['veja tambem']?.length) {
+            const veja = document.createElement('div');
+            veja.className = 'palavra-veja-tambem-info';
+            veja.innerHTML = `<strong>Veja também:</strong> ${item['veja tambem'].join(', ')}`;
+            section.appendChild(veja);
+        }
+
+        const agrupado = {};
+        item.concordancias?.forEach(oc => {
+            const livro = extrairNomeLivroDaReferencia(oc.referencia);
+            if (!agrupado[livro]) agrupado[livro] = [];
+            agrupado[livro].push(oc);
+        });
+
+        const ordem = getOrdemDosLivrosConfig();
+        const livrosPresentes = Object.keys(agrupado);
+
+        ordem.forEach(livro => {
+            if (livrosPresentes.includes(livro)) {
+                criarSecaoLivro(section, livro, agrupado[livro], item.palavra);
+            }
+        });
+
+        livrosPresentes.forEach(livro => {
+            if (!ordem.includes(livro)) {
+                criarSecaoLivro(section, livro, agrupado[livro], item.palavra);
+            }
+        });
+
+        container.appendChild(section);
+    });
+
+    const inicial = document.getElementById('initial-message');
+    if (inicial) inicial.style.display = 'none';
+}
+
+function criarSecaoLivro(section, livro, ocorrencias, palavra) {
+    const grupo = document.createElement('div');
+    grupo.className = 'livro-grupo';
+
+    const cabecalho = document.createElement('div');
+    cabecalho.className = 'livro-header';
+    cabecalho.textContent = `${formatarNomeLivro(livro)} (${ocorrencias.length} ocorrência${ocorrencias.length > 1 ? 's' : ''})`;
+    grupo.appendChild(cabecalho);
+
+    ocorrencias.forEach(oc => {
+        const div = document.createElement('div');
+        div.className = 'ocorrencia';
+
+        const ref = document.createElement('div');
+        ref.className = 'referenciaConcordancia';
+        ref.textContent = formatarReferencia(oc.referencia);
+
+        const texto = document.createElement('div');
+        texto.className = 'texto';
+        texto.innerHTML = destacarPalavra(oc.texto, termoBuscaGlobalAtual || palavra);
+
+        div.appendChild(ref);
+        div.appendChild(texto);
+        grupo.appendChild(div);
+    });
+
+    section.appendChild(grupo);
+}
+
+// ===== FUNÇÃO DE BUSCA GLOBAL CORRIGIDA E DEFINITIVA =====
+export async function executarBuscaGlobalConcordancia(termo) {
+    termoBuscaGlobalAtual = termo.trim().toLowerCase();
+    const resultadosContainer = document.getElementById('resultados-container');
+    filtroPalavraAtual = '';
+
+    if (!termoBuscaGlobalAtual) {
+        if (resultadosContainer) resultadosContainer.innerHTML = '<p class="sem-resultados">Digite um termo para a busca global.</p>';
+        dadosCarregadosPorLetraOuBusca = [];
+        return;
+    }
+
+    if (resultadosContainer) {
+        resultadosContainer.innerHTML = '<div class="loader-global-busca">🔍 Buscando em toda a Bíblia...</div>';
+    }
+
+    const todosOsResultadosGlobais = new Map();
+    const todasAsLetras = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    const regexBusca = new RegExp(`\\b(${termoBuscaGlobalAtual.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
+
+    for (const letra of todasAsLetras) {
+        try {
+            const response = await fetch(`${CONCORDANCIA_DATA_BASE_PATH_LOCAL}${letra}.json`);
+            if (!response.ok) continue;
+
+            const jsonData = await response.json();
+            const wordEntries = jsonData[letra.toLowerCase()] || [];
+
+            for (const item of wordEntries) {
+                // 1. Busca pela palavra-chave principal
+                if (item.palavra.toLowerCase().includes(termoBuscaGlobalAtual)) {
+                    if (!todosOsResultadosGlobais.has(item.palavra)) {
+                        todosOsResultadosGlobais.set(item.palavra, { ...item });
+                    }
+                }
+
+                // 2. Busca dentro do texto dos versículos
+                const concordanciasCorrespondentes = (item.concordancias || []).filter(oc => regexBusca.test(oc.texto));
+
+                if (concordanciasCorrespondentes.length > 0) {
+                    // Se a palavra-chave principal ainda não foi adicionada, adicione-a agora
+                    // mas apenas com os versículos que correspondem à busca.
+                    if (!todosOsResultadosGlobais.has(item.palavra)) {
+                        todosOsResultadosGlobais.set(item.palavra, {
+                            ...item,
+                            concordancias: concordanciasCorrespondentes,
+                            ocorrencias: concordanciasCorrespondentes.length
+                        });
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn(`Erro ao carregar ou processar ${letra}.json:`, e);
+        }
+    }
+
+    dadosCarregadosPorLetraOuBusca = Array.from(todosOsResultadosGlobais.values());
+    _aplicarFiltrosERenderizar();
+}
+
+
+-------------------------------------------------------------
+
+// script/dicionario_concordancia.js
+import {
+    onConcordanciaViewReady,
+    carregarDadosBaseConcordancia,
+    atualizarFiltroTestamento,
+    atualizarFiltroLivro,
+    executarBuscaGlobalConcordancia,
+    atualizarFiltroPalavra
+} from './concordancia.js';
+
+import { setupDicionarioView, carregarEDisplayDicionarioPorLetra } from './dicionario.js';
+import { initConcordanciaDropdowns } from './dropdown_concordancia.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    const conteudoPrincipal = document.getElementById('conteudoPrincipal');
+    const inicial = document.getElementById('mensagem-inicial');
+    const navConcordancia = document.getElementById('concordancia');
+    const navDicionario = document.getElementById('dicionario');
+    const menuAlfabetico = document.querySelector('.menu-alfabetico');
+    const TELA_CONCORDANCIA_PATH = 'concordancia.html';
+    const TELA_DICIONARIO_VIEW_PATH = 'dicionario.html';
+    const CONCORDANCIA_DATA_BASE_PATH = '../concordancia/';
+    const DICIONARIO_DATA_BASE_PATH_LOCAL = '/dicionario/';
+
+    let currentView = null;
+    let letraAtivaSidebar = null;
+
+    function clearActiveNav() {
+        document.querySelectorAll('nav .menu-opcoes li a.active').forEach(link => link.classList.remove('active'));
+    }
+
+    function setActiveNav(navElement) {
+        if (navElement) navElement.classList.add('active');
+    }
+
+    function adjustMainContentMargin() {
+        const sidebarWidth = parseFloat(getComputedStyle(menuAlfabetico).width) || 60;
+        const isSidebarVisible = currentView === 'concordance' || currentView === 'dictionary';
+        const elementos = ['conteudoPrincipal', 'mensagem-inicial'].map(id => document.getElementById(id));
+        elementos.forEach(el => {
+            if (el) el.style.marginLeft = isSidebarVisible ? `${sidebarWidth}px` : '0';
+        });
+    }
+
+    function showInitialState() {
+        if (inicial) {
+            inicial.innerHTML = `
+                <h2>Seja bem-vindo!</h2>
+                <p>Escolha Concordância ou Dicionário no menu superior.</p>`;
+            inicial.style.display = 'block';
+        }
+        if (conteudoPrincipal) conteudoPrincipal.innerHTML = '';
+        if (menuAlfabetico) menuAlfabetico.style.display = 'none';
+        clearActiveNav();
+        currentView = null;
+        letraAtivaSidebar = null;
+        adjustMainContentMargin();
+    }
+
+    async function loadView(viewPath, targetElement, onLoadedCallback) {
+        if (!targetElement) return showInitialState();
+        if (inicial) inicial.style.display = 'none';
+        targetElement.innerHTML = '<div class="loader-geral">Carregando...</div>';
+
+        try {
+            const response = await fetch(viewPath);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const html = await response.text();
+            targetElement.innerHTML = html;
+            if (onLoadedCallback) onLoadedCallback();
+        } catch (error) {
+            targetElement.innerHTML = `<p class="erro-mensagem">${error.message}</p>`;
+        }
+    }
+
+    async function fetchConcordanciaDataByLetter(letra) {
+        const resultadosContainer = conteudoPrincipal.querySelector('#resultados-container');
+        if (!resultadosContainer) return;
+
+        resultadosContainer.innerHTML = '<div class="loader">Carregando...</div>';
+
+        try {
+            const response = await fetch(`${CONCORDANCIA_DATA_BASE_PATH}${letra.toLowerCase()}.json`);
+            if (!response.ok) throw new Error('Arquivo não encontrado.');
+            const jsonData = await response.json();
+            const wordEntries = jsonData[letra.toLowerCase()] || [];
+            carregarDadosBaseConcordancia(wordEntries);
+        } catch (error) {
+            resultadosContainer.innerHTML = `<p class="erro-mensagem">${error.message}</p>`;
+            carregarDadosBaseConcordancia([]);
+        }
+    }
+
+    function setupGlobalLetterButtonListeners() {
+        if (!menuAlfabetico) return;
+        menuAlfabetico.querySelectorAll('.letra-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                menuAlfabetico.querySelectorAll('.letra-btn.active').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                letraAtivaSidebar = btn.dataset.letra;
+
+                if (currentView === 'concordance') {
+                    const buscaGlobalInput = conteudoPrincipal.querySelector('.filtros-container .search-input');
+                    const filtroPalavraInput = conteudoPrincipal.querySelector('#filtro-palavra-input');
+                    if (buscaGlobalInput) buscaGlobalInput.value = '';
+                    if (filtroPalavraInput) filtroPalavraInput.value = '';
+                    fetchConcordanciaDataByLetter(letraAtivaSidebar);
+                } else if (currentView === 'dictionary') {
+                    const buscaDicionarioInput = conteudoPrincipal.querySelector('#dicionarioSearchInput');
+                    if (buscaDicionarioInput) buscaDicionarioInput.value = '';
+                    if (window.dicionario && typeof window.dicionario.loadAndDisplayLetter === 'function') {
+                        window.dicionario.loadAndDisplayLetter(letraAtivaSidebar);
+                    }
+                }
+
+                adjustMainContentMargin();
+            });
+        });
+    }
+
+    function onConcordanciaViewLoadedAndReady() {
+        initConcordanciaDropdowns(
+            (testamentoValue) => atualizarFiltroTestamento(testamentoValue),
+            (livroValue) => atualizarFiltroLivro(livroValue)
+        );
+
+        onConcordanciaViewReady();
+
+        const buscaGlobalInput = conteudoPrincipal.querySelector('.filtros-container .search-input');
+        const filtroPalavraInputConc = conteudoPrincipal.querySelector('#filtro-palavra-input');
+        const btnConsultar = conteudoPrincipal.querySelector('.filtros-container .search-btn');
+
+        function executarBuscaGlobalConcHandler() {
+            const termoBusca = buscaGlobalInput.value.trim();
+            executarBuscaGlobalConcordancia(termoBusca);
+            if (filtroPalavraInputConc) filtroPalavraInputConc.value = '';
+            if (termoBusca && menuAlfabetico) {
+                menuAlfabetico.querySelectorAll('.letra-btn.active').forEach(b => b.classList.remove('active'));
+                letraAtivaSidebar = null;
+            }
+        }
+
+        if (btnConsultar && buscaGlobalInput) {
+            btnConsultar.addEventListener('click', executarBuscaGlobalConcHandler);
+            buscaGlobalInput.addEventListener('keyup', e => e.key === 'Enter' && btnConsultar.click());
+        }
+
+        if (filtroPalavraInputConc) {
+            filtroPalavraInputConc.addEventListener('input', e => atualizarFiltroPalavra(e.target.value));
+        }
+
+        if (letraAtivaSidebar) {
+            fetchConcordanciaDataByLetter(letraAtivaSidebar);
+            const btnLetraAtiva = menuAlfabetico.querySelector(`.letra-btn[data-letra="${letraAtivaSidebar}"]`);
+            if (btnLetraAtiva && !btnLetraAtiva.classList.contains('active')) btnLetraAtiva.classList.add('active');
+        }
+    }
+
+    function onDicionarioViewLoadedAndReady() {
+        setupDicionarioView(letraAtivaSidebar);
+        if (letraAtivaSidebar) {
+            const btnLetraAtiva = menuAlfabetico.querySelector(`.letra-btn[data-letra="${letraAtivaSidebar}"]`);
+            if (btnLetraAtiva && !btnLetraAtiva.classList.contains('active')) btnLetraAtiva.classList.add('active');
+        }
+    }
+
+    navConcordancia.addEventListener('click', e => {
+        e.preventDefault();
+        if (currentView === 'concordance') return;
+        clearActiveNav(); setActiveNav(navConcordancia); currentView = 'concordance';
+        menuAlfabetico.style.display = 'flex'; adjustMainContentMargin();
+        loadView(TELA_CONCORDANCIA_PATH, conteudoPrincipal, onConcordanciaViewLoadedAndReady);
+    });
+
+    navDicionario.addEventListener('click', e => {
+        e.preventDefault();
+        if (currentView === 'dictionary') return;
+        clearActiveNav(); setActiveNav(navDicionario); currentView = 'dictionary';
+        menuAlfabetico.style.display = 'flex'; adjustMainContentMargin();
+        loadView(TELA_DICIONARIO_VIEW_PATH, conteudoPrincipal, onDicionarioViewLoadedAndReady);
+    });
+
+    setupGlobalLetterButtonListeners();
+    showInitialState();
+    window.addEventListener('resize', adjustMainContentMargin);
+});
+
+
+-------------------------------------------------------------
+
+/* ========================================== */
+/* === ARQUIVO: dicionario.js (COMPLETO) === */
+/* ========================================== */
+
+/**
+ * Sistema de Dicionário Bíblico (Versão Completa e Refinada)
+ * Define a classe Dicionario, que gerencia toda a interatividade da seção de dicionário.
+ * Esta classe deve ser instanciada por um script principal.
+ */
+class Dicionario {
+    /**
+     * Construtor da classe Dicionario.
+     * Inicializa propriedades e chama os métodos para configurar elementos e eventos.
+     */
+    constructor() {
+        // --- Estado Interno da Classe ---
+        this.currentLetter = null; // Letra atualmente selecionada (ex: 'A')
+        this.currentPage = 0; // Controla a página atual para o "carregar mais"
+        this.itemsPerPage = 50; // Quantidade de itens a serem mostrados por página
+        this.allTermos = []; // Array com todos os termos da letra carregada
+        this.listaLetras = null; // Cache para o arquivo de mapeamento (lista_letras.json)
+
+        // --- Inicialização ---
+        this.initializeElements();
+        this.bindEvents();
+    }
+
+    /**
+     * Mapeia os elementos do DOM para a propriedade 'elements' para fácil acesso.
+     */
+    initializeElements() {
+        this.elements = {
+            dicionarioInput: document.querySelector('#secao-dicionario .dicionario-busca input'),
+            dicionarioResultados: document.getElementById('dicionario-resultados'),
+            secaoDicionario: document.getElementById('secao-dicionario'),
+        };
+    }
+
+    /**
+     * Vincula todos os eventos necessários para a interatividade do dicionário.
+     */
+    bindEvents() {
+        // Validação para garantir que os elementos essenciais existem
+        if (!this.elements.dicionarioInput || !this.elements.secaoDicionario) {
+            console.error("Elementos essenciais do dicionário não foram encontrados no DOM.");
+            return;
+        }
+
+        // Adiciona evento de clique para CADA botão de letra no menu alfabético
+        document.querySelectorAll('.letra-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // A ação só é executada se a seção do dicionário estiver ativa
+                if (this.elements.secaoDicionario.classList.contains('secao-ativa')) {
+                    const letra = btn.dataset.letra;
+                    this.loadAndDisplayLetter(letra);
+                }
+            });
+        });
+
+        // Adiciona evento de digitação no campo de busca para filtrar resultados
+        this.elements.dicionarioInput.addEventListener('input', (e) => {
+            this.handleSearch(e.target.value);
+        });
+    }
+
+    /**
+     * Método de inicialização chamado quando a aba "Dicionário" é ativada.
+     * Reseta a visualização para o estado inicial.
+     */
+    init() {
+        if (this.elements.dicionarioResultados) {
+            this.elements.dicionarioResultados.innerHTML = `<p class="mensagem-inicial">Escolha uma letra para exibir os termos do dicionário.</p>`;
+        }
+        this.clearPagination(); // Remove qualquer controle de paginação existente
+        // Remove a classe 'active' de qualquer botão de letra
+        document.querySelectorAll('.letra-btn.active').forEach(btn => btn.classList.remove('active'));
+    }
+
+    /**
+     * Carrega e exibe os termos do dicionário para uma letra específica.
+     * @param {string} letra - A letra a ser carregada (ex: 'A').
+     */
+    async loadAndDisplayLetter(letra) {
+        if (!letra) return;
+        this.currentLetter = letra.toUpperCase();
+        this.updateActiveLetterButton(this.currentLetter);
+
+        // Limpa a interface antes de carregar novos dados
+        if (this.elements.dicionarioInput) this.elements.dicionarioInput.value = '';
+        this.elements.dicionarioResultados.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Carregando dados...</p></div>';
+        this.clearPagination();
+
+        // Carrega o mapa de arquivos (lista_letras.json) se ainda não estiver em cache
+        if (!this.listaLetras) {
+            try {
+                const response = await fetch('../dicionario/lista_letras.json');
+                if (!response.ok) throw new Error('Falha ao carregar o índice de arquivos (lista_letras.json).');
+                this.listaLetras = await response.json();
+            } catch (error) {
+                this.elements.dicionarioResultados.innerHTML = `<p class="erro-mensagem">${error.message}</p>`;
+                return;
+            }
+        }
+
+        const arquivos = this.listaLetras[letra.toLowerCase()];
+        if (!arquivos || arquivos.length === 0) {
+            this.elements.dicionarioResultados.innerHTML = `<p class="mensagem-inicial">Nenhum termo encontrado para a letra "${letra}".</p>`;
+            return;
+        }
+
+        // Carrega os dados dos arquivos JSON correspondentes à letra
+        try {
+            const allTermos = [];
+            await Promise.all(arquivos.map(async (nomeArquivo) => {
+                const response = await fetch(`../dicionario/${letra.toLowerCase()}/${nomeArquivo}.json`);
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    const termos = jsonData[letra.toUpperCase()] || [];
+                    allTermos.push(...termos);
+                }
+            }));
+
+            this.allTermos = allTermos;
+            this.currentPage = 0; // Reseta a paginação para a primeira página
+            this.renderDictionaryResults(this.getCurrentPageTerms());
+            this.renderPagination(); // Cria a paginação na barra superior
+        } catch (error) {
+            this.elements.dicionarioResultados.innerHTML = `<p class="erro-mensagem">Erro ao carregar dados: ${error.message}</p>`;
+        }
+    }
+
+    /**
+     * Renderiza os resultados do dicionário no DOM.
+     * @param {Array} results - Um array de objetos de termos a serem exibidos.
+     */
+    renderDictionaryResults(results) {
+        if (!results || results.length === 0) {
+            this.elements.dicionarioResultados.innerHTML = `<div class="sem-resultados"><h3>Nenhum termo encontrado</h3></div>`;
+            return;
+        }
+
+        const resultsHtml = results.map(item => this.createDefinitionElement(item)).join('');
+        this.elements.dicionarioResultados.innerHTML = resultsHtml;
+
+        // Adiciona eventos para expandir/recolher as definições
+        this.elements.dicionarioResultados.querySelectorAll('.palavra-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const indicator = header.querySelector('.expand-indicator');
+                const isExpanded = content.style.display === 'block';
+                
+                content.style.display = isExpanded ? 'none' : 'block';
+                indicator.classList.toggle('expanded', !isExpanded);
+            });
+        });
+    }
+
+    /**
+     * Cria o HTML para um único item de definição.
+     * @param {object} item - O objeto do termo contendo definição, referências, etc.
+     * @returns {string} O HTML do elemento de definição.
+     */
+    createDefinitionElement(item) {
+        const definicaoPrincipal = item.definicao || 'Definição não disponível.';
+        const definicaoAdicional = item.definicaoAdicional || '';
+        const referencias = item.referencias || [];
+
+        const referencesHtml = referencias.map(ref => `<div class="referencia-item">${ref}</div>`).join('');
+
+        return `
+            <div class="definicao-item">
+                <div class="palavra-header">
+                    <span class="palavra-titulo">${item.termo.toUpperCase()}</span>
+                    <span class="expand-indicator">&#9660;</span>
+                </div>
+                <div class="definicao-content" style="display:none;">
+                    <div class="definicao-texto">${definicaoPrincipal}</div>
+                    ${definicaoAdicional ? `<div class="definicao-adicional">${definicaoAdicional}</div>` : ''}
+                    ${referencesHtml ? `
+                        <div class="referencias-section">
+                            <div class="referencias-titulo">Referências</div>
+                            ${referencesHtml}
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Renderiza os controles de paginação e os insere na barra de busca.
+     */
+    renderPagination() {
+        const linhaBusca = document.querySelector('#secao-dicionario .dicionario-linha');
+        if (!linhaBusca) return;
+
+        this.clearPagination(); // Garante que não haja duplicatas
+
+        const total = this.allTermos.length;
+        const startIndex = this.currentPage * this.itemsPerPage;
+        const endIndex = Math.min(startIndex + this.itemsPerPage, total);
+        // Calcula o número total de itens exibidos até a página atual
+        const showingTotal = Math.min((this.currentPage + 1) * this.itemsPerPage, total);
+
+        if (total === 0) return; // Não mostra paginação se não houver resultados
+
+        const paginacaoGrupo = document.createElement("div");
+        paginacaoGrupo.className = "dicionario-paginacao-grupo";
+
+        const html = `
+            <button id="btn-anterior-dicionario" class="btn-paginacao" ${this.currentPage === 0 ? "disabled" : ""}>ANTERIOR</button>
+            <span class="contador-dicionario">Mostrando ${showingTotal} de ${total} resultados</span>
+            <button id="btn-proximo-dicionario" class="btn-paginacao" ${endIndex >= total ? "disabled" : ""}>PRÓXIMO</button>
+        `;
+
+        paginacaoGrupo.innerHTML = html;
+        linhaBusca.appendChild(paginacaoGrupo); // Adiciona o grupo à barra superior
+
+        const btnAnterior = document.getElementById("btn-anterior-dicionario");
+        const btnProximo = document.getElementById("btn-proximo-dicionario");
+
+        if (btnAnterior) {
+            btnAnterior.onclick = () => {
+                if (this.currentPage > 0) {
+                    this.currentPage--;
+                    this.renderDictionaryResults(this.getCurrentPageTerms());
+                    this.renderPagination();
+                }
+            };
+        }
+
+        if (btnProximo) {
+            btnProximo.onclick = () => {
+                if (endIndex < total) {
+                    this.currentPage++;
+                    this.renderDictionaryResults(this.getCurrentPageTerms());
+                    this.renderPagination();
+                }
+            };
+        }
+    }
+    
+    /**
+     * Remove o grupo de paginação da tela.
+     */
+    clearPagination() {
+        const oldPag = document.querySelector('#secao-dicionario .dicionario-paginacao-grupo');
+        if (oldPag) oldPag.remove();
+    }
+
+    /**
+     * Retorna a fatia de termos correspondente à página atual.
+     */
+    getCurrentPageTerms() {
+        const start = this.currentPage * this.itemsPerPage;
+        const end = start + this.itemsPerPage;
+        return this.allTermos.slice(start, end);
+    }
+
+    /**
+     * Filtra os resultados com base no termo de busca.
+     */
+    handleSearch(searchTerm) {
+        const term = searchTerm.trim().toLowerCase();
+
+        if (term.length === 0) {
+            // Se a busca for limpa, volta a exibir os resultados da letra selecionada
+            if (this.currentLetter) {
+                this.renderDictionaryResults(this.getCurrentPageTerms());
+                this.renderPagination();
+            } else {
+                this.init(); // Se nenhuma letra foi selecionada, reseta a view
+            }
+            return;
+        }
+
+        // Filtra os resultados de `allTermos` (da letra atual)
+        const filteredResults = this.allTermos.filter(item =>
+            item.termo.toLowerCase().includes(term)
+        );
+        
+        this.clearPagination(); // Remove a paginação durante a busca
+        this.renderDictionaryResults(filteredResults);
+    }
+
+    /**
+     * Atualiza a classe 'active' no botão da letra correspondente no menu lateral.
+     */
+    updateActiveLetterButton(letra) {
+        document.querySelectorAll('.letra-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.letra.toUpperCase() === letra.toUpperCase());
+        });
+    }
+}
+
+
+
+------------------------------------------------------------
+
+
+
+// script/dropdown_concordancia.js
+
+const bibliaConfig = {
+    livros: [
+        // Antigo Testamento
+        { id: 'gn', nome: 'Gênesis', testamento: 'Antigo Testamento' },
+        { id: 'ex', nome: 'Êxodo', testamento: 'Antigo Testamento' },
+        { id: 'lv', nome: 'Levítico', testamento: 'Antigo Testamento' },
+        { id: 'nm', nome: 'Números', testamento: 'Antigo Testamento' },
+        { id: 'dt', nome: 'Deuteronômio', testamento: 'Antigo Testamento' },
+        { id: 'js', nome: 'Josué', testamento: 'Antigo Testamento' },
+        { id: 'jz', nome: 'Juízes', testamento: 'Antigo Testamento' },
+        { id: 'rt', nome: 'Rute', testamento: 'Antigo Testamento' },
+        { id: '1sm', nome: '1 Samuel', testamento: 'Antigo Testamento' },
+        { id: '2sm', nome: '2 Samuel', testamento: 'Antigo Testamento' },
+        { id: '1rs', nome: '1 Reis', testamento: 'Antigo Testamento' },
+        { id: '2rs', nome: '2 Reis', testamento: 'Antigo Testamento' },
+        { id: '1cr', nome: '1 Crônicas', testamento: 'Antigo Testamento' },
+        { id: '2cr', nome: '2 Crônicas', testamento: 'Antigo Testamento' },
+        { id: 'ed', nome: 'Esdras', testamento: 'Antigo Testamento' },
+        { id: 'ne', nome: 'Neemias', testamento: 'Antigo Testamento' },
+        { id: 'et', nome: 'Ester', testamento: 'Antigo Testamento' },
+        { id: 'jo', nome: 'Jó', testamento: 'Antigo Testamento' },
+        { id: 'sl', nome: 'Salmos', testamento: 'Antigo Testamento' },
+        { id: 'pv', nome: 'Provérbios', testamento: 'Antigo Testamento' },
+        { id: 'ec', nome: 'Eclesiastes', testamento: 'Antigo Testamento' },
+        { id: 'ct', nome: 'Cantares', testamento: 'Antigo Testamento' },
+        { id: 'is', nome: 'Isaías', testamento: 'Antigo Testamento' },
+        { id: 'jr', nome: 'Jeremias', testamento: 'Antigo Testamento' },
+        { id: 'lm', nome: 'Lamentações', testamento: 'Antigo Testamento' },
+        { id: 'ez', nome: 'Ezequiel', testamento: 'Antigo Testamento' },
+        { id: 'dn', nome: 'Daniel', testamento: 'Antigo Testamento' },
+        { id: 'os', nome: 'Oséias', testamento: 'Antigo Testamento' },
+        { id: 'jl', nome: 'Joel', testamento: 'Antigo Testamento' },
+        { id: 'am', nome: 'Amós', testamento: 'Antigo Testamento' },
+        { id: 'ob', nome: 'Obadias', testamento: 'Antigo Testamento' },
+        { id: 'jn', nome: 'Jonas', testamento: 'Antigo Testamento' },
+        { id: 'mq', nome: 'Miquéias', testamento: 'Antigo Testamento' },
+        { id: 'na', nome: 'Naum', testamento: 'Antigo Testamento' },
+        { id: 'hc', nome: 'Habacuque', testamento: 'Antigo Testamento' },
+        { id: 'sf', nome: 'Sofonias', testamento: 'Antigo Testamento' },
+        { id: 'ag', nome: 'Ageu', testamento: 'Antigo Testamento' },
+        { id: 'zc', nome: 'Zacarias', testamento: 'Antigo Testamento' },
+        { id: 'ml', nome: 'Malaquias', testamento: 'Antigo Testamento' },
+
+        // Novo Testamento
+        { id: 'mt', nome: 'Mateus', testamento: 'Novo Testamento' },
+        { id: 'mc', nome: 'Marcos', testamento: 'Novo Testamento' },
+        { id: 'lc', nome: 'Lucas', testamento: 'Novo Testamento' },
+        { id: 'joa', nome: 'João', testamento: 'Novo Testamento' },
+        { id: 'at', nome: 'Atos', testamento: 'Novo Testamento' },
+        { id: 'rm', nome: 'Romanos', testamento: 'Novo Testamento' },
+        { id: '1co', nome: '1 Coríntios', testamento: 'Novo Testamento' },
+        { id: '2co', nome: '2 Coríntios', testamento: 'Novo Testamento' },
+        { id: 'gl', nome: 'Gálatas', testamento: 'Novo Testamento' },
+        { id: 'ef', nome: 'Efésios', testamento: 'Novo Testamento' },
+        { id: 'fp', nome: 'Filipenses', testamento: 'Novo Testamento' },
+        { id: 'cl', nome: 'Colossenses', testamento: 'Novo Testamento' },
+        { id: '1ts', nome: '1 Tessalonicenses', testamento: 'Novo Testamento' },
+        { id: '2ts', nome: '2 Tessalonicenses', testamento: 'Novo Testamento' },
+        { id: '1tm', nome: '1 Timóteo', testamento: 'Novo Testamento' },
+        { id: '2tm', nome: '2 Timóteo', testamento: 'Novo Testamento' },
+        { id: 'tt', nome: 'Tito', testamento: 'Novo Testamento' },
+        { id: 'fm', nome: 'Filemom', testamento: 'Novo Testamento' },
+        { id: 'hb', nome: 'Hebreus', testamento: 'Novo Testamento' },
+        { id: 'tg', nome: 'Tiago', testamento: 'Novo Testamento' },
+        { id: '1pe', nome: '1 Pedro', testamento: 'Novo Testamento' },
+        { id: '2pe', nome: '2 Pedro', testamento: 'Novo Testamento' },
+        { id: '1jo', nome: '1 João', testamento: 'Novo Testamento' },
+        { id: '2jo', nome: '2 João', testamento: 'Novo Testamento' },
+        { id: '3jo', nome: '3 João', testamento: 'Novo Testamento' },
+        { id: 'jd', nome: 'Judas', testamento: 'Novo Testamento' },
+        { id: 'ap', nome: 'Apocalipse', testamento: 'Novo Testamento' }
+    ],
+    getTestamentoDoLivro(nomeLivroOuId) {
+        if (!nomeLivroOuId) return null;
+        const nomeLower = String(nomeLivroOuId).trim().toLowerCase();
+        const partes = nomeLower.split(' ');
+        const nomeBase = partes[0];
+
+        const livroEncontrado = this.livros.find(livro =>
+            livro.nome.toLowerCase() === nomeBase ||
+            livro.id.toLowerCase() === nomeBase
+        );
+
+        return livroEncontrado ? livroEncontrado.testamento : null;
+    },
+    getLivrosPorTestamento(testamento = 'todos') {
+        if (testamento === 'todos') return [...this.livros];
+        return this.livros.filter(livro => livro.testamento === testamento);
+    },
+    getOrdemLivros() {
+        return this.livros.map(l => l.nome);
+    },
+    findLivroById(livroId) {
+        return this.livros.find(l => l.id === livroId);
+    }
+};
+
+// *** INÍCIO DA CORREÇÃO ***
+// Cria um mapa para consulta rápida do testamento a partir do nome normalizado do livro.
+const mapaLivros = bibliaConfig.livros.reduce((acc, livro) => {
+    const nomeNormalizado = livro.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    acc[nomeNormalizado] = livro.testamento;
+    return acc;
+}, {});
+// *** FIM DA CORREÇÃO ***
+
+export function getTestamentoDoLivroConfig(nomeLivro) {
+    if (!nomeLivro) return null;
+    // A chamada em concordancia.js já normaliza o nome do livro, então aqui só precisamos consultar.
+    const normalizado = nomeLivro.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return mapaLivros[normalizado] || null;
+}
+
+export function getOrdemDosLivrosConfig() {
+    return bibliaConfig.getOrdemLivros();
+}
+
+export function findLivroByIdConfig(livroId) {
+    return bibliaConfig.findLivroById(livroId);
+}
+
+let onTestamentoChangeGlobalCallback = null;
+let onLivroChangeGlobalCallback = null;
+
+export function initConcordanciaDropdowns(cbTestamento, cbLivro) {
+    onTestamentoChangeGlobalCallback = cbTestamento;
+    onLivroChangeGlobalCallback = cbLivro;
+
+    const testamentoSelectElement = document.getElementById('custom-testamento-select');
+    const livroSelectElement = document.getElementById('custom-livro-select');
+
+    if (testamentoSelectElement) {
+        _makeCustomSelect(testamentoSelectElement, (detail) => {
+            if (onTestamentoChangeGlobalCallback) {
+                onTestamentoChangeGlobalCallback(detail.value);
+            }
+            if (livroSelectElement) {
+                _populateLivrosDropdown(livroSelectElement, detail.value);
+            }
+        });
+    }
+
+    if (livroSelectElement) {
+        _makeCustomSelect(livroSelectElement, (detail) => {
+            if (onLivroChangeGlobalCallback) {
+                onLivroChangeGlobalCallback(detail.value);
+            }
+        });
+
+        let initialTestamentoValue = 'todos';
+        if (testamentoSelectElement) {
+            const display = testamentoSelectElement.querySelector('.select-selected');
+            if (display && display.dataset.value) {
+                initialTestamentoValue = display.dataset.value;
+            }
+        }
+
+        _populateLivrosDropdown(livroSelectElement, initialTestamentoValue);
+    }
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest('.custom-select')) {
+            _closeAllSelects(null);
+        }
+    });
+}
+
+function _makeCustomSelect(customSelectElement, onChangeCallback) {
+    const selectSelectedDisplay = customSelectElement.querySelector(".select-selected");
+    const itemsContainer = customSelectElement.querySelector(".select-items");
+
+    if (!selectSelectedDisplay || !itemsContainer) return;
+
+    selectSelectedDisplay.addEventListener("click", function (e) {
+        e.stopPropagation();
+        _closeAllSelects(this);
+        itemsContainer.classList.toggle("select-hide");
+        this.classList.toggle("select-arrow-active");
+    });
+
+    Array.from(itemsContainer.children).forEach(optionItem => {
+        optionItem.addEventListener("click", function () {
+            const valorAntigo = selectSelectedDisplay.dataset.value;
+            const textoAntigo = selectSelectedDisplay.innerHTML;
+
+            selectSelectedDisplay.innerHTML = this.innerHTML;
+            selectSelectedDisplay.dataset.value = this.dataset.value || this.textContent;
+
+            Array.from(itemsContainer.children).forEach(child => child.classList.remove("same-as-selected"));
+            this.classList.add("same-as-selected");
+
+            _closeAllSelects(null);
+
+            if (onChangeCallback) {
+                onChangeCallback({
+                    value: this.dataset.value,
+                    text: this.textContent
+                });
+            }
+        });
+    });
+}
+
+function _populateLivrosDropdown(customLivroSelectElement, testamentoFiltrado) {
+    const itemsContainer = customLivroSelectElement.querySelector(".select-items");
+    const selectedDisplay = customLivroSelectElement.querySelector(".select-selected");
+
+    if (!itemsContainer || !selectedDisplay) return;
+
+    itemsContainer.innerHTML = '';
+
+    const TodosOption = document.createElement("div");
+    TodosOption.textContent = "Todos os livros";
+    TodosOption.dataset.value = "todos";
+    itemsContainer.appendChild(TodosOption);
+
+    const livrosParaExibir = bibliaConfig.getLivrosPorTestamento(testamentoFiltrado);
+    livrosParaExibir.forEach(livro => {
+        const opt = document.createElement("div");
+        opt.textContent = livro.nome;
+        opt.dataset.value = livro.id;
+        itemsContainer.appendChild(opt);
+    });
+
+    const valorSelecionado = selectedDisplay.dataset.value;
+    const livroExistente = livrosParaExibir.find(l => l.id === valorSelecionado);
+
+    if (livroExistente) {
+        selectedDisplay.innerHTML = livroExistente.nome;
+        selectedDisplay.dataset.value = livroExistente.id;
+    } else {
+        selectedDisplay.innerHTML = "Todos os livros";
+        selectedDisplay.dataset.value = "todos";
+    }
+
+    Array.from(itemsContainer.children).forEach(optionItem => {
+        optionItem.addEventListener("click", function () {
+            const valorAntigo = selectedDisplay.dataset.value;
+            const textoAntigo = selectedDisplay.innerHTML;
+
+            selectedDisplay.innerHTML = this.innerHTML;
+            selectedDisplay.dataset.value = this.dataset.value || this.textContent;
+
+            Array.from(itemsContainer.children).forEach(child => child.classList.remove("same-as-selected"));
+            this.classList.add("same-as-selected");
+
+            _closeAllSelects(null);
+
+            if (valorAntigo !== this.dataset.value || textoAntigo !== this.textContent) {
+                if (onLivroChangeGlobalCallback) {
+                    onLivroChangeGlobalCallback(this.dataset.value);
+                }
+            }
+        });
+    });
+}
+
+function _closeAllSelects(exceptThisSelectedDisplay) {
+    document.querySelectorAll(".custom-select .select-items").forEach(container => {
+        container.classList.add("select-hide");
+    });
+
+    document.querySelectorAll(".custom-select .select-selected").forEach(display => {
+        display.classList.remove("select-arrow-active");
+    });
+}
+
+// Certifique-se de que estas funções estão sendo chamadas quando os dropdowns mudam
+
+// Função para configurar os eventos dos dropdowns customizados
+function configurarEventosDropdowns() {
+    // Dropdown de Testamento
+    const testamentoSelect = document.getElementById('custom-testamento-select');
+    if (testamentoSelect) {
+        const testamentoItems = testamentoSelect.querySelectorAll('.select-items div');
+        testamentoItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const valor = this.getAttribute('data-value');
+                const selected = testamentoSelect.querySelector('.select-selected');
+                
+                // Atualizar o texto e valor selecionado
+                selected.textContent = this.textContent;
+                selected.setAttribute('data-value', valor);
+                
+                // Chamar a função de filtro da concordância
+                if (typeof atualizarFiltroTestamento === 'function') {
+                    atualizarFiltroTestamento(valor);
+                }
+                
+                console.log(`[DROPDOWN] Testamento selecionado: ${valor}`);
+            });
+        });
+    }
+
+    // Dropdown de Livro
+    const livroSelect = document.getElementById('custom-livro-select');
+    if (livroSelect) {
+        const livroItems = livroSelect.querySelectorAll('.select-items div');
+        livroItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const valor = this.getAttribute('data-value');
+                const selected = livroSelect.querySelector('.select-selected');
+                
+                // Atualizar o texto e valor selecionado
+                selected.textContent = this.textContent;
+                selected.setAttribute('data-value', valor);
+                
+                // Chamar a função de filtro da concordância
+                if (typeof atualizarFiltroLivro === 'function') {
+                    atualizarFiltroLivro(valor);
+                }
+                
+                console.log(`[DROPDOWN] Livro selecionado: ${valor}`);
+            });
+        });
+    }
+}
+
+// Função para configurar o botão de busca
+function configurarBuscaGlobal() {
+    const searchBtn = document.querySelector('.search-btn');
+    const searchInput = document.querySelector('.search-input');
+    
+    if (searchBtn && searchInput) {
+        // Evento do botão
+        searchBtn.addEventListener('click', function() {
+            const termo = searchInput.value.trim();
+            if (termo && typeof executarBuscaGlobalConcordancia === 'function') {
+                executarBuscaGlobalConcordancia(termo);
+            }
+        });
+        
+        // Evento do Enter no input
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const termo = this.value.trim();
+                if (termo && typeof executarBuscaGlobalConcordancia === 'function') {
+                    executarBuscaGlobalConcordancia(termo);
+                }
+            }
+        });
+    }
+}
+
+// Chame estas funções quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    configurarEventosDropdowns();
+    configurarBuscaGlobal();
+});
+
+// Também chame quando trocar para a aba de concordância
+function onConcordanciaTabActive() {
+    // Aguardar um pouco para garantir que o HTML foi carregado
+    setTimeout(() => {
+        configurarEventosDropdowns();
+        configurarBuscaGlobal();
+        
+        // Chamar a função de inicialização da concordância
+        if (typeof onConcordanciaViewReady === 'function') {
+            onConcordanciaViewReady();
+        }
+    }, 100);
+}
+
+
+
+
+----------------------------------------------------------------
+
+
+/**
+ * Gerenciador de dados otimizado para grandes volumes de concordância
+ * Implementa carregamento sob demanda e cache inteligente
+ */
+
+class DataManager {
+    constructor() {
+        this.cache = new Map();
+        this.loadingPromises = new Map();
+        this.listaLetras = null;
+        this.currentLetter = null;
+        this.currentPage = 0;
+        this.itemsPerPage = 50; // Carrega 50 itens por vez
+        this.totalItems = 0;
+        this.allData = [];
+        this.filteredData = [];
+    }
+
+    /**
+     * Carrega a lista de arquivos para uma letra específica
+     */
+    async loadLetterList() {
+        if (this.listaLetras) return this.listaLetras;
+
+        try {
+            const response = await fetch('/concordancia/lista_letras.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            this.listaLetras = await response.json();
+            return this.listaLetras;
+        } catch (error) {
+            console.error('Erro ao carregar lista de letras:', error);
+            // Fallback com dados de exemplo
+            this.listaLetras = {
+                "a": ["a1", "a2", "a3", "a4"] // Exemplo baseado nos arquivos fornecidos
+            };
+            return this.listaLetras;
+        }
+    }
+
+    /**
+     * Carrega dados de uma letra específica com paginação
+     */
+    async loadLetterData(letter, page = 0, forceReload = false) {
+        const letterLower = letter.toLowerCase();
+        const cacheKey = `${letterLower}_${page}`;
+
+        // Verifica se já está carregando
+        if (this.loadingPromises.has(cacheKey)) {
+            return await this.loadingPromises.get(cacheKey);
+        }
+
+        // Verifica cache
+        if (!forceReload && this.cache.has(cacheKey)) {
+            return this.cache.get(cacheKey);
+        }
+
+        // Cria promise de carregamento
+        const loadingPromise = this._loadLetterDataInternal(letterLower, page);
+        this.loadingPromises.set(cacheKey, loadingPromise);
+
+        try {
+            const result = await loadingPromise;
+            this.cache.set(cacheKey, result);
+            return result;
+        } finally {
+            this.loadingPromises.delete(cacheKey);
+        }
+    }
+
+    /**
+     * Carregamento interno dos dados
+     */
+    async _loadLetterDataInternal(letter, page) {
+        try {
+            await this.loadLetterList();
+            
+            const letterFiles = this.listaLetras[letter] || [];
+            if (letterFiles.length === 0) {
+                return { data: [], hasMore: false, total: 0 };
+            }
+
+            // Se é uma nova letra, carrega todos os dados
+            if (this.currentLetter !== letter) {
+                this.currentLetter = letter;
+                this.currentPage = 0;
+                this.allData = [];
+                await this._loadAllLetterData(letter, letterFiles);
+            }
+
+            // Aplica paginação
+            const startIndex = page * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            const pageData = this.allData.slice(startIndex, endIndex);
+            const hasMore = endIndex < this.allData.length;
+
+            return {
+                data: pageData,
+                hasMore: hasMore,
+                total: this.allData.length,
+                currentPage: page
+            };
+
+        } catch (error) {
+            console.error(`Erro ao carregar dados da letra ${letter}:`, error);
+            return this._getFallbackData(letter);
+        }
+    }
+
+    /**
+     * Carrega todos os arquivos de uma letra
+     */
+    async _loadAllLetterData(letter, letterFiles) {
+        const batchSize = 5; // Carrega 5 arquivos por vez
+        const allData = [];
+
+        for (let i = 0; i < letterFiles.length; i += batchSize) {
+            const batch = letterFiles.slice(i, i + batchSize);
+            const batchPromises = batch.map(fileName => this._loadSingleFile(letter, fileName));
+            
+            try {
+                const batchResults = await Promise.all(batchPromises);
+                batchResults.forEach(result => {
+                    if (result && result.data) {
+                        allData.push(...result.data);
+                    }
+                });
+            } catch (error) {
+                console.warn(`Erro ao carregar lote de arquivos:`, error);
+            }
+        }
+
+        this.allData = allData;
+        this.totalItems = allData.length;
+    }
+
+    /**
+     * Carrega um único arquivo JSON
+     */
+    async _loadSingleFile(letter, fileName) {
+        try {
+            const response = await fetch(`/concordancia/${letter}/${fileName}.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return { data: data[letter] || [] };
+        } catch (error) {
+            console.warn(`Erro ao carregar arquivo ${fileName}.json:`, error);
+            return { data: [] };
+        }
+    }
+
+    /**
+     * Busca global por palavra
+     */
+    async searchGlobal(searchTerm, filters = {}) {
+        if (!searchTerm || searchTerm.length < 2) {
+            return { data: [], total: 0 };
+        }
+
+        const searchLower = searchTerm.toLowerCase();
+        const firstLetter = searchLower.charAt(0);
+
+        try {
+            // Carrega dados da primeira letra da palavra buscada
+            await this.loadLetterData(firstLetter, 0, false);
+            
+            // Filtra resultados
+            const filteredResults = this.allData.filter(item => {
+                const matchesWord = item.palavra.toLowerCase().includes(searchLower);
+                const matchesTestament = this._matchesTestamentFilter(item, filters.testamento);
+                const matchesBook = this._matchesBookFilter(item, filters.livro);
+                
+                return matchesWord && matchesTestament && matchesBook;
+            });
+
+            return {
+                data: filteredResults,
+                total: filteredResults.length
+            };
+
+        } catch (error) {
+            console.error('Erro na busca global:', error);
+            return { data: [], total: 0 };
+        }
+    }
+
+    /**
+     * Aplica filtros de testamento
+     */
+    _matchesTestamentFilter(item, testamentFilter) {
+        if (!testamentFilter || testamentFilter === 'todos') return true;
+        
+        // Implementar lógica de filtro por testamento baseada nas referências
+        // Por enquanto, retorna true (implementar conforme necessário)
+        return true;
+    }
+
+    /**
+     * Aplica filtros de livro
+     */
+    _matchesBookFilter(item, bookFilter) {
+        if (!bookFilter || bookFilter === 'todos') return true;
+        
+        // Verifica se alguma concordância contém o livro especificado
+        return item.concordancias.some(concordancia => 
+            concordancia.referencia.toLowerCase().includes(bookFilter.toLowerCase())
+        );
+    }
+
+    /**
+     * Dados de fallback em caso de erro
+     */
+    _getFallbackData(letter) {
+        const fallbackData = {
+            "a": [
+                {
+                    "palavra": "exemplo",
+                    "veja tambem": [],
+                    "ocorrencias": 1,
+                    "fonte": "Dados de exemplo",
+                    "concordancias": [
+                        {
+                            "referencia": "Exemplo 1:1",
+                            "texto": "Este é um exemplo de dados de fallback."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return {
+            data: fallbackData[letter.toLowerCase()] || [],
+            hasMore: false,
+            total: 1
+        };
+    }
+
+    /**
+     * Limpa cache para economizar memória
+     */
+    clearCache() {
+        this.cache.clear();
+        this.loadingPromises.clear();
+    }
+
+    /**
+     * Obtém estatísticas do cache
+     */
+    getCacheStats() {
+        return {
+            cacheSize: this.cache.size,
+            loadingPromises: this.loadingPromises.size,
+            currentLetter: this.currentLetter,
+            totalItems: this.totalItems
+        };
+    }
+}
+
+// Instância global do gerenciador de dados
+window.dataManager = new DataManager();
+
+--------------------------------------------------------------
+
+/**
+ * Script principal - gerencia navegação e inicialização (VERSÃO CORRIGIDA)
+ */
+
+class MainApp {
+    constructor() {
+        // Inicializa os componentes principais da aplicação
+        // Isso centraliza o controle e evita problemas de ordem de carregamento
+        window.dataManager = new DataManager();
+        window.concordanciaOptimized = new ConcordanciaOptimized();
+        window.dicionario = new Dicionario();
+
+        this.currentSection = 'concordancia';
+        this.initializeElements();
+        this.bindEvents();
+        this.initializeApp();
+    }
+
+    initializeElements() {
+        this.elements = {
+            menuPrincipal: document.getElementById('menu-principal'),
+            concordanciaBtn: document.getElementById('concordancia'),
+            dicionarioBtn: document.getElementById('dicionario'),
+            sobreBtn: document.getElementById('sobre'),
+            mensagemInicial: document.getElementById('mensagem-inicial'),
+            secaoConcordancia: document.getElementById('secao-concordancia'),
+            secaoDicionario: document.getElementById('secao-dicionario'),
+            secaoSobre: document.getElementById('secao-sobre'),
+            menuAlfabetico: document.querySelector('.menu-alfabetico')
+        };
+    }
+
+    bindEvents() {
+        // Navegação do menu
+        this.elements.menuPrincipal.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showSection('inicial');
+        });
+
+        this.elements.concordanciaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showSection('concordancia');
+        });
+
+        this.elements.dicionarioBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showSection('dicionario');
+        });
+
+        this.elements.sobreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showSection('sobre');
+        });
+
+        // Eventos de teclado para navegação rápida
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey) {
+                switch (e.key) {
+                    case '1':
+                        e.preventDefault();
+                        this.showSection('concordancia');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        this.showSection('dicionario');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        this.showSection('sobre');
+                        break;
+                }
+            }
+        });
+    }
+
+    initializeApp() {
+        // Inicia na seção de concordância
+        this.showSection('concordancia');
+        
+        console.log('📖 Concordância e Dicionário Bíblico inicializado');
+        console.log('⌨️  Atalhos: Ctrl+1 (Concordância), Ctrl+2 (Dicionário), Ctrl+3 (Sobre)');
+        
+        this.monitorPerformance();
+    }
+
+    showSection(sectionName) {
+        document.querySelectorAll('.menu-opcoes a').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        this.elements.mensagemInicial.style.display = 'none';
+        this.elements.secaoConcordancia.classList.remove('secao-ativa');
+        this.elements.secaoConcordancia.classList.add('secao-inativa');
+        this.elements.secaoDicionario.classList.remove('secao-ativa');
+        this.elements.secaoDicionario.classList.add('secao-inativa');
+        this.elements.secaoSobre.classList.remove('secao-ativa');
+        this.elements.secaoSobre.classList.add('secao-inativa');
+
+        switch (sectionName) {
+            case 'inicial':
+                this.elements.mensagemInicial.style.display = 'block';
+                this.elements.menuAlfabetico.style.display = 'none';
+                this.currentSection = 'inicial';
+                break;
+
+            case 'concordancia':
+                this.elements.secaoConcordancia.classList.remove('secao-inativa');
+                this.elements.secaoConcordancia.classList.add('secao-ativa');
+                this.elements.concordanciaBtn.classList.add('active');
+                this.elements.menuAlfabetico.style.display = 'block';
+                this.currentSection = 'concordancia';
+                break;
+
+            case 'dicionario':
+                this.elements.secaoDicionario.classList.remove('secao-inativa');
+                this.elements.secaoDicionario.classList.add('secao-ativa');
+                this.elements.dicionarioBtn.classList.add('active');
+                this.elements.menuAlfabetico.style.display = 'block';
+                this.currentSection = 'dicionario';
+                // A chamada agora funcionará porque window.dicionario foi criado no construtor
+                if (window.dicionario && typeof window.dicionario.init === 'function') {
+                    window.dicionario.init();
+                }
+                break;
+
+            case 'sobre':
+                this.elements.secaoSobre.classList.remove('secao-inativa');
+                this.elements.secaoSobre.classList.add('secao-ativa');
+                this.elements.sobreBtn.classList.add('active');
+                this.elements.menuAlfabetico.style.display = 'none';
+                this.currentSection = 'sobre';
+                break;
+        }
+        this.updatePageTitle(sectionName);
+    }
+
+    updatePageTitle(sectionName) {
+        const titles = {
+            'inicial': 'Concordância e Dicionário Bíblico',
+            'concordancia': 'Concordância Bíblica',
+            'dicionario': 'Dicionário Bíblico',
+            'sobre': 'Sobre - Concordância e Dicionário Bíblico'
+        };
+        document.title = titles[sectionName] || 'Concordância e Dicionário Bíblico';
+    }
+
+    monitorPerformance() {
+        if ('memory' in performance) {
+            setInterval(() => {
+                const memory = performance.memory;
+                const memoryInfo = {
+                    used: Math.round(memory.usedJSHeapSize / 1024 / 1024),
+                    total: Math.round(memory.totalJSHeapSize / 1024 / 1024),
+                    limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024)
+                };
+                if (memoryInfo.used > 100) {
+                    console.warn('⚠️ Alto uso de memória:', memoryInfo);
+                    if (window.dataManager && memoryInfo.used > 200) {
+                        window.dataManager.clearCache();
+                        console.log('🧹 Cache limpo para economizar memória');
+                    }
+                }
+            }, 30000);
+        }
+
+        window.addEventListener('load', () => {
+            if (performance.timing.loadEventEnd > 0) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`⏱️ Tempo de carregamento: ${loadTime}ms`);
+            }
+        });
+    }
+
+    getStats() {
+        const stats = {
+            currentSection: this.currentSection,
+            timestamp: new Date().toISOString()
+        };
+        if (window.dataManager) {
+            stats.dataManager = window.dataManager.getCacheStats();
+        }
+        return stats;
+    }
+}
+
+// Inicializa a aplicação quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    window.mainApp = new MainApp();
+});
+
+window.debugApp = {
+    getStats: () => window.mainApp?.getStats(),
+    clearCache: () => window.dataManager?.clearCache(),
+    showSection: (section) => window.mainApp?.showSection(section)
+};
