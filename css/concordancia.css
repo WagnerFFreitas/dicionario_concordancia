@@ -3,7 +3,8 @@
 /* Container de filtros - barra de filtro */
 /* Container de filtros - barra de filtro */
 .filtros-container {
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    /*background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);*/
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.2) 0%, rgba(51, 51, 51, 0.2) 100%);
     border: 2px solid #d4af37;
     border-radius: 12px;
     padding: 15px;
@@ -494,7 +495,8 @@
   É a única regra que deve definir o .contador-container para garantir que funcione corretamente.
 */
 .contador-container {
-    background-color: #34312a; /* Cor de fundo da barra */
+    /*background-color: #34312a; /* Cor de fundo da barra */
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.2) 0%, rgba(51, 51, 51, 0.2) 100%);
     border: 1px solid #d4af37; /* Borda dourada */
     border-radius: 8px; /* Cantos arredondados */
     height: 54px; /* Altura fixa da barra */

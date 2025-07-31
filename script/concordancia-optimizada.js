@@ -404,62 +404,79 @@ class ConcordanciaOptimized {
     applyFilters() {
         this.renderFilteredResults();
     }
-    
-    // ========================================================================
-    // == FUNÇÃO DE FILTRAGEM CORRIGIDA E FINAL ==
-    // ========================================================================
+
+    // ===== FUNÇÃO REVISADA E CORRIGIDA =====
     renderFilteredResults() {
-        // 1. Cria uma cópia profunda (deep copy) dos resultados originais.
-        // Isso é CRUCIAL para evitar a "mutação de dados". Agora, a cada vez que o filtro roda,
-        // ele começa com os dados completos e originais, sem as alterações do filtro anterior.
+        // 1. Cria uma cópia profunda dos resultados originais
         const originalDataCopy = JSON.parse(JSON.stringify(this.currentResults));
         const filterTerm = this.elements.filtroPalavra?.value?.trim().toLowerCase() || '';
 
-        // 2. Filtra a lista principal de palavras.
+        // 2. Normaliza o filtro de testamento
+        let testamentoFiltro = this.filters.testamento;
+        if (testamentoFiltro === 'Velho Testamento') {
+            testamentoFiltro = 'Antigo Testamento';
+        }
+
+        // 3. Filtra a lista principal de palavras
         const finalResults = originalDataCopy.map(item => {
-            // Para cada palavra (item), primeiro filtramos sua lista interna de versículos (concordancias).
+            // Filtra os versículos por testamento/livro
             const filteredConcordancias = item.concordancias.filter(concordancia => {
                 const referenciaNome = this.extractBookName(concordancia.referencia);
+                const livroTestamento = this.getBookTestament(referenciaNome);
                 
-                // CRITÉRIO A: O versículo corresponde ao filtro de TESTAMENTO?
-                const testamentoMatch = this.filters.testamento === 'todos' || this.getBookTestament(referenciaNome) === this.filters.testamento;
+                // Verifica o testamento
+                const testamentoMatch = testamentoFiltro === 'todos' || 
+                                      livroTestamento === testamentoFiltro;
                 
-                // CRITÉRIO B: O versículo corresponde ao filtro de LIVRO?
+                // Verifica o livro específico
                 const livroConfig = this.findBookById(this.filters.livro);
-                const livroMatch = this.filters.livro === 'todos' || (livroConfig && referenciaNome.toLowerCase() === livroConfig.nome.toLowerCase());
+                let livroMatch = true;
                 
-                // Um versículo só é mantido se passar nos dois critérios de categoria.
+                if (this.filters.livro !== 'todos' && livroConfig) {
+                    // Comparação mais flexível para nomes de livros
+                    const livroRef = referenciaNome.toLowerCase().replace(/\d/g, '').trim();
+                    const livroFiltro = livroConfig.nome.toLowerCase().replace(/\d/g, '').trim();
+                    livroMatch = livroRef.includes(livroFiltro) || livroFiltro.includes(livroRef);
+                }
+                
                 return testamentoMatch && livroMatch;
             });
 
-            // 3. Agora, aplicamos o filtro de PALAVRA sobre o que sobrou.
+            // 4. Aplica o filtro de palavra
             let finalConcordancias = filteredConcordancias;
             if (filterTerm) {
-                // Se o usuário digitou algo, filtramos novamente a lista de versículos
-                // para manter apenas aqueles que contêm o termo digitado.
-                finalConcordancias = filteredConcordancias.filter(c => c.texto.toLowerCase().includes(filterTerm));
+                finalConcordancias = filteredConcordancias.filter(c => {
+                    const textoMatch = c.texto.toLowerCase().includes(filterTerm);
+                    const palavraMatch = item.palavra.toLowerCase().includes(filterTerm);
+                    const sinonimosMatch = item['veja tambem'] && item['veja tambem'].some(
+                        sinonimo => sinonimo.toLowerCase().includes(filterTerm)
+                    );
+                    return textoMatch || palavraMatch || sinonimosMatch;
+                });
             }
 
-            // 4. Verificamos se o item principal deve ser mantido na lista final.
-            // Se, após toda a filtragem, ainda sobrar algum versículo, mantemos o item.
+            // 5. Mantém o item se ainda houver versículos
             if (finalConcordancias.length > 0) {
-                item.concordancias = finalConcordancias; // Atualiza o item com a lista de versículos filtrada.
-                item.ocorrencias = finalConcordancias.length; // Atualiza o contador de ocorrências.
-                return item; // Retorna o item modificado.
+                item.concordancias = finalConcordancias;
+                item.ocorrencias = finalConcordancias.length;
+                return item;
             }
-            
-            // Se não sobrou nenhum versículo, o item é descartado.
             return null;
-        }).filter(Boolean); // `filter(Boolean)` remove todos os itens que se tornaram `null`.
+        }).filter(Boolean);
 
-        // 5. Renderiza o resultado final e atualiza o contador na tela.
+        // 6. Renderiza e atualiza contador
         this.elements.resultadosContainer.innerHTML = '';
         this.renderResults(finalResults, false);
-        this.updateResultsCounter(finalResults.length, this.totalResultsCount); // Usa o total original para a contagem.
+        this.updateResultsCounter(finalResults.length, this.totalResultsCount);
     }
 
-
     updateLivroDropdown(testamentoSelecionado) {
+        // Normalização do testamento
+        let normalizedTestamento = testamentoSelecionado;
+        if (testamentoSelecionado === 'Velho Testamento') {
+            normalizedTestamento = 'Antigo Testamento';
+        }
+        
         const livroSelect = document.getElementById('custom-livro-select');
         if (!livroSelect) return;
         
@@ -476,7 +493,7 @@ class ConcordanciaOptimized {
         todosOption.classList.add('same-as-selected');
         itemsContainer.appendChild(todosOption);
         
-        const livros = this.getLivrosPorTestamento(testamentoSelecionado);
+        const livros = this.getLivrosPorTestamento(normalizedTestamento);
         livros.forEach(livro => {
             const option = document.createElement('div');
             option.textContent = livro.nome;
@@ -528,26 +545,57 @@ class ConcordanciaOptimized {
 
     extractBookName(referencia) {
         if (!referencia) return '';
-        const match = referencia.match(/^([A-Za-zÀ-ÿ\s0-9]+)(?=\s*\d)/);
-        return match ? match[1].trim() : referencia.split(' ')[0].trim();
+        // Remove números e pontuações
+        const nomeLivro = referencia.replace(/[0-9:.,;]/g, '').trim();
+        // Remove espaços extras
+        return nomeLivro.replace(/\s\s+/g, ' ');
     }
 
     getBookTestament(nomeLivro) {
-        const bibliaConfig = {
-            'Antigo Testamento': [ 'Gênesis', 'Êxodo', 'Levítico', 'Números', 'Deuteronômio', 'Josué', 'Juízes', 'Rute', '1 Samuel', '2 Samuel', '1 Reis', '2 Reis', '1 Crônicas', '2 Crônicas', 'Esdras', 'Neemias', 'Ester', 'Jó', 'Salmos', 'Provérbios', 'Eclesiastes', 'Cantares', 'Isaías', 'Jeremias', 'Lamentações', 'Ezequiel', 'Daniel', 'Oséias', 'Joel', 'Amós', 'Obadias', 'Jonas', 'Miquéias', 'Naum', 'Habacuque', 'Sofonias', 'Ageu', 'Zacarias', 'Malaquias' ],
-            'Novo Testamento': [ 'Mateus', 'Marcos', 'Lucas', 'João', 'Atos', 'Romanos', '1 Coríntios', '2 Coríntios', 'Gálatas', 'Efésios', 'Filipenses', 'Colossenses', '1 Tessalonicenses', '2 Tessalonicenses', '1 Timóteo', '2 Timóteo', 'Tito', 'Filemom', 'Hebreus', 'Tiago', '1 Pedro', '2 Pedro', '1 João', '2 João', '3 João', 'Judas', 'Apocalipse' ]
-        };
-
-        for (const [testamento, livros] of Object.entries(bibliaConfig)) {
-            if (livros.some(livro => livro.toLowerCase() === nomeLivro.toLowerCase())) {
-                return testamento;
-            }
+        // Lista de livros do Antigo Testamento
+        const antigoTestamento = [
+            'Gênesis', 'Êxodo', 'Levítico', 'Números', 'Deuteronômio', 'Josué', 
+            'Juízes', 'Rute', 'Samuel', 'Reis', 'Crônicas', 'Esdras', 'Neemias', 
+            'Ester', 'Jó', 'Salmos', 'Provérbios', 'Eclesiastes', 'Cantares', 
+            'Isaías', 'Jeremias', 'Lamentações', 'Ezequiel', 'Daniel', 'Oséias', 
+            'Joel', 'Amós', 'Obadias', 'Jonas', 'Miquéias', 'Naum', 'Habacuque', 
+            'Sofonias', 'Ageu', 'Zacarias', 'Malaquias'
+        ];
+        
+        // Lista de livros do Novo Testamento
+        const novoTestamento = [
+            'Mateus', 'Marcos', 'Lucas', 'João', 'Atos', 'Romanos', 'Coríntios', 
+            'Gálatas', 'Efésios', 'Filipenses', 'Colossenses', 'Tessalonicenses', 
+            'Timóteo', 'Tito', 'Filemom', 'Hebreus', 'Tiago', 'Pedro', 'João', 
+            'Judas', 'Apocalipse'
+        ];
+        
+        // Normaliza o nome do livro para minúsculas
+        const livroLower = nomeLivro.toLowerCase();
+        
+        // Verifica se é do Antigo Testamento
+        const isAntigoTestamento = antigoTestamento.some(livro => 
+            livroLower.includes(livro.toLowerCase())
+        );
+        
+        // Verifica se é do Novo Testamento
+        const isNovoTestamento = novoTestamento.some(livro => 
+            livroLower.includes(livro.toLowerCase())
+        );
+        
+        // Caso especial para "Crônicas" sem número
+        if (livroLower.includes('crônicas') && !isAntigoTestamento) {
+            return 'Antigo Testamento';
         }
+        
+        if (isAntigoTestamento) return 'Antigo Testamento';
+        if (isNovoTestamento) return 'Novo Testamento';
+        
         return null;
     }
 
     findBookById(bookId) {
-        const livros = [ { id: 'gn', nome: 'Gênesis' }, { id: 'ex', nome: 'Êxodo' }, { id: 'lv', nome: 'Levítico' }, { id: 'nm', nome: 'Números' }, { id: 'dt', nome: 'Deuteronômio' }, { id: 'js', nome: 'Josué' }, { id: 'jz', nome: 'Juízes' }, { id: 'rt', nome: 'Rute' }, { id: '1sm', nome: '1 Samuel' }, { id: '2sm', nome: '2 Samuel' }, { id: '1rs', nome: '1 Reis' }, { id: '2rs', nome: '2 Reis' }, { id: '1cr', nome: '1 Crônicas' }, { id: '2cr', nome: '2 Crônicas' }, { id: 'ed', nome: 'Esdras' }, { id: 'ne', nome: 'Neemias' }, { id: 'et', nome: 'Ester' }, { id: 'jo', nome: 'Jó' }, { id: 'sl', nome: 'Salmos' }, { id: 'pv', nome: 'Provérbios' }, { id: 'ec', nome: 'Eclesiastes' }, { id: 'ct', nome: 'Cantares' }, { id: 'is', nome: 'Isaías' }, { id: 'jr', nome: 'Jeremias' }, { id: 'lm', nome: 'Lamentações' }, { id: 'ez', nome: 'Ezequiel' }, { id: 'dn', nome: 'Daniel' }, { id: 'os', nome: 'Oséias' }, { id: 'jl', nome: 'Joel' }, { id: 'am', nome: 'Amós' }, { id: 'ob', nome: 'Obadias' }, { id: 'jn', nome: 'Jonas' }, { id: 'mq', nome: 'Miquéias' }, { id: 'na', nome: 'Naum' }, { id: 'hc', nome: 'Habacuque' }, { id: 'sf', nome: 'Sofonias' }, { id: 'ag', nome: 'Ageu' }, { id: 'zc', nome: 'Zacarias' }, { id: 'ml', nome: 'Malaquias' }, { id: 'mt', nome: 'Mateus' }, { id: 'mc', nome: 'Marcos' }, { id: 'lc', nome: 'Lucas' }, { id: 'joa', nome: 'João' }, { id: 'at', nome: 'Atos' }, { id: 'rm', nome: 'Romanos' }, { id: '1co', nome: '1 Coríntios' }, { id: '2co', nome: '2 Coríntios' }, { id: 'gl', nome: 'Gálatas' }, { id: 'ef', nome: 'Efésios' }, { id: 'fp', nome: 'Filipenses' }, { id: 'cl', nome: 'Colossenses' }, { id: '1ts', nome: '1 Tessalonicenses' }, { id: '2ts', nome: '2 Tessalonicenses' }, { id: '1tm', nome: '1 Timóteo' }, { id: '2tm', nome: '2 Timóteo' }, { id: 'tt', nome: 'Tito' }, { id: 'fm', nome: 'Filemom' }, { id: 'hb', nome: 'Hebreus' }, { id: 'tg', nome: 'Tiago' }, { id: '1pe', nome: '1 Pedro' }, { id: '2pe', 'nome': '2 Pedro' }, { id: '1jo', nome: '1 João' }, { id: '2jo', nome: '2 João' }, { id: '3jo', nome: '3 João' }, { id: 'jd', nome: 'Judas' }, { id: 'ap', nome: 'Apocalipse' } ];
+        const livros = [ { id: 'gn', nome: 'Gênesis' }, { id: 'ex', nome: 'Êxodo' }, { id: 'lv', nome: 'Levítico' }, { id: 'nm', nome: 'Números' }, { id: 'dt', nome: 'Deuteronômio' }, { id: 'js', nome: 'Josué' }, { id: 'jz', nome: 'Juízes' }, { id: 'rt', nome: 'Rute' }, { id: '1sm', nome: '1 Samuel' }, { id: '2sm', nome: '2 Samuel' }, { id: '1rs', nome: '1 Reis' }, { id: '2rs', nome: '2 Reis' }, { id: '1cr', nome: '1 Crônicas' }, { id: '2cr', nome: '2 Crônicas' }, { id: 'ed', nome: 'Esdras' }, { id: 'ne', nome: 'Neemias' }, { id: 'et', nome: 'Ester' }, { id: 'jo', nome: 'Jó' }, { id: 'sl', nome: 'Salmos' }, { id: 'pv', nome: 'Provérbios' }, { id: 'ec', nome: 'Eclesiastes' }, { id: 'ct', nome: 'Cantares' }, { id: 'is', nome: 'Isaías' }, { id: 'jr', nome: 'Jeremias' }, { id: 'lm', nome: 'Lamentações' }, { id: 'ez', nome: 'Ezequiel' }, { id: 'dn', nome: 'Daniel' }, { id: 'os', nome: 'Oséias' }, { id: 'jl', nome: 'Joel' }, { id: 'am', nome: 'Amós' }, { id: 'ob', nome: 'Obadias' }, { id: 'jn', nome: 'Jonas' }, { id: 'mq', nome: 'Miquéias' }, { id: 'na', nome: 'Naum' }, { id: 'hc', nome: 'Habacuque' }, { id: 'sf', nome: 'Sofonias' }, { id: 'ag', nome: 'Ageu' }, { id: 'zc', nome: 'Zacarias' }, { id: 'ml', nome: 'Malaquias' }, { id: 'mt', nome: 'Mateus' }, { id: 'mc', nome: 'Marcos' }, { id: 'lc', nome: 'Lucas' }, { id: 'joa', nome: 'João' }, { id: 'at', nome: 'Atos' }, { id: 'rm', nome: 'Romanos' }, { id: '1co', nome: '1 Coríntios' }, { id: '2co', nome: '2 Coríntios' }, { id: 'gl', nome: 'Gálatas' }, { id: 'ef', nome: 'Efésios' }, { id: 'fp', nome: 'Filipenses' }, { id: 'cl', nome: 'Colossenses' }, { id: '1ts', nome: '1 Tessalonicenses' }, { id: '2ts', nome: '2 Tessalonicenses' }, { id: '1tm', nome: '1 Timóteo' }, { id: '2tm', nome: '2 Timóteo' }, { id: 'tt', nome: 'Tito' }, { id: 'fm', nome: 'Filemom' }, { id: 'hb', nome: 'Hebreus' }, { id: 'tg', nome: 'Tiago' }, { id: '1pe', nome: '1 Pedro' }, { id: '2pe', nome: '2 Pedro' }, { id: '1jo', nome: '1 João' }, { id: '2jo', nome: '2 João' }, { id: '3jo', nome: '3 João' }, { id: 'jd', nome: 'Judas' }, { id: 'ap', nome: 'Apocalipse' } ];
         
         return livros.find(l => l.id === bookId);
     }

@@ -31,11 +31,11 @@ class MainApp {
     }
 
     bindEvents() {
-        // Navegação do menu
+        /* Navegação do menu
         this.elements.menuPrincipal.addEventListener('click', (e) => {
             e.preventDefault();
             this.showSection('inicial');
-        });
+        });*/
 
         this.elements.concordanciaBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -97,11 +97,11 @@ class MainApp {
         this.elements.secaoSobre.classList.add('secao-inativa');
 
         switch (sectionName) {
-            case 'inicial':
+            /*case 'inicial':
                 this.elements.mensagemInicial.style.display = 'block';
                 this.elements.menuAlfabetico.style.display = 'none';
                 this.currentSection = 'inicial';
-                break;
+                break;*/
 
             case 'concordancia':
                 this.elements.secaoConcordancia.classList.remove('secao-inativa');

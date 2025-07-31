@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concordância e Dicionário Bíblico</title>
     <!-- Certifique-se de que os caminhos para os arquivos CSS estão corretos -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/menu_dicionarioconcordancia.css">
     <link rel="stylesheet" href="../css/concordancia.css">
     <link rel="stylesheet" href="../css/dicionario.css">
 </head>
@@ -23,7 +23,7 @@
         <nav>
             <span class="titulo-menu">NAVEGAÇÃO</span>
             <ul class="menu-opcoes">
-                <li><a href="/index.html" id="menu-principal">Menu Principal</a></li>
+                <li><a href="../index.html" id="menu-principal">Menu Principal</a></li>
                 <li><a href="#" id="concordancia" class="active">Concordância</a></li>
                 <li><a href="#" id="dicionario">Dicionário</a></li>
                 <li><a href="#" id="sobre">Sobre</a></li>
@@ -167,6 +167,11 @@
                     </ul>
                 </div>
             </section>
+            <!-- Área de marca d'água e título do capítulo -->
+            <section class="conteudo">
+                <h2></h2>
+                <div class="marcadagua"></div>
+            </section>
         </main>
     </div>
 
@@ -177,6 +182,7 @@
 
     <!-- Scripts -->
     <!-- Certifique-se de que os caminhos para os arquivos JS estão corretos -->
+    <script src="../script/marcadagua.js"></script>
     <script src="../script/gerenciador_concordancia.js"></script>
     <script src="../script/concordancia-optimizada.js"></script>
     <script src="../script/dicionario.js"></script>

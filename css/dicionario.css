@@ -45,9 +45,10 @@
     border-radius: 8px;
     margin-bottom: 20px;
     position: sticky;
-    top: 220px; /* Ajustado para 100px (nav) + 60px (ajuste do nav) + 60px (dicionario-linha) */
+    /*top: 0; /* Ajustado para 100px (nav) + 60px (ajuste do nav) + 60px (dicionario-linha) */
     z-index: 850;
     background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%); /* Garante fundo consistente */
+    border: 2px solid #d4af37;
 }
 
 /* Grupo de busca (input + botão) */
@@ -223,12 +224,13 @@
     padding: 20px;
     min-height: 400px;
     flex-grow: 1;
-    margin-left: 140px; /* Largura do menu alfabético */
+    /*margin-left: 0; /* Largura do menu alfabético */
     overflow-y: auto; /* Rolagem apenas no conteúdo */
     height: calc(100vh - 280px); /* Ajusta para header (80px) + nav (60px) + 20px extras + dicionario-linha (80px) + footer (40px) */
-    margin-top: 80px; /* Espaço abaixo da dicionario-linha sticky */
+    /*margin-top: 0; /* Espaço abaixo da dicionario-linha sticky */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE e Edge */
+    padding-bottom: 60px; /* Garante espaço no final da rolagem */
 }
 
 #dicionario-resultados::-webkit-scrollbar {
@@ -245,7 +247,7 @@
     background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
     border: 2px solid #444444;
     border-radius: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     overflow: hidden;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
